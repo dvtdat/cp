@@ -62,3 +62,20 @@
 1630572436 source:c:\code\cp\kattis\ceremony.cpp
 	<bits/stdc++.h>
 
+1630601940 source:c:\code\cp\kattis\kayaking.cpp
+	<bits/stdc++.h>
+
+1630654824 source:c:\code\cp\kattis\coast.cpp
+	<bits/stdc++.h>
+
+1630663763 source:c:\code\cp\kattis\builddeps.cpp
+	<bits/stdc++.h>
+	<ext/pb_ds/assoc_container.hpp>
+	<ext/pb_ds/tree_policy.hpp>
+
+1630668566 source:c:\code\cp\kattis\thelastproblem.cpp
+	<bits/stdc++.h>
+
+1630669709 source:c:\code\cp\kattis\buttonbashing.cpp
+	<bits/stdc++.h>
+
