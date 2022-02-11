@@ -32,7 +32,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="main.cpp" />
+		<Unit filename="truyvan.cpp" />
+		<Unit filename="truyvan.inp" />
+		<Unit filename="truyvan.out" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
