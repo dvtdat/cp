@@ -49,7 +49,7 @@ bool bfs(int mid)
 int main()
 {
     freopen("timduong.inp", "r", stdin);
-    //freopen("timduong.out", "w", stdout);
+    freopen("timduong.out", "w", stdout);
     cin >> n;
 
     for (int i = 0; i < n; ++i)

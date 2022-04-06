@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1646927004 source:c:\code\cp\atcoder\atcoder\main.cpp
+	<bits/stdc++.h>
+
+1646927505 source:c:\code\cp\atcoder\frog2.cpp
+	<bits/stdc++.h>
+
+1646928651 source:c:\code\cp\atcoder\vacation.cpp
+	<bits/stdc++.h>
+
+1646929712 source:c:\code\cp\atcoder\lcs.cpp
+	<bits/stdc++.h>
+
+1647179504 source:c:\code\cp\atcoder\knapsack1.cpp
+	<bits/stdc++.h>
+
+1647182380 source:c:\code\cp\atcoder\knapsack2.cpp
+	<bits/stdc++.h>
+
+1647232099 source:c:\code\cp\atcoder\longestpath.cpp
+	<bits/stdc++.h>
+

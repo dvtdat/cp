@@ -4,6 +4,8 @@ using namespace std;
 
 int main()
 {
+	freopen("average.inp", "r", stdin);
+    	freopen("average.out", "w", stdout);
     int n, k;
     cin >> n >> k;
 

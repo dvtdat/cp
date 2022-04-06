@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1649242773 source:c:\code\cp\generator2\prefix_trau.cpp
+	<bits/stdc++.h>
+
+1649242967 source:c:\code\cp\generator2\prefix.cpp
+	<bits/stdc++.h>
+
+1649243447 source:c:\code\cp\generator2\driver.cpp
+	<bits/stdc++.h>
+

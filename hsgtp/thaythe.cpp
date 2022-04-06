@@ -30,6 +30,8 @@ int bfs()
 
 int main()
 {
+    freopen("thaythe.inp", "r", stdin);
+    freopen("thaythe.out", "w", stdout);
     cin >> n >> p >> a >> b >> r;
 
     for (int u = 0; u < p; ++u)

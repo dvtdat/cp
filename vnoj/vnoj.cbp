@@ -32,7 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="NKCABLE.cpp" />
+		<Unit filename="NKGUARD.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
