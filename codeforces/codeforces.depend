@@ -1,31 +1,85 @@
 # depslib dependency file v1.0
-1630985734 source:c:\code\cp\codeforces\main.cpp
+1660400608 source:c:\work\cp\codeforces\1692a.cpp
 	<bits/stdc++.h>
 
-1630988639 source:c:\code\cp\codeforces\1554a.cpp
+1660464605 source:c:\work\cp\codeforces\1704b.cpp
 	<bits/stdc++.h>
 
-1631023646 source:c:\code\cp\codeforces\1409a.cpp
+1660467057 source:c:\work\cp\codeforces\1689b.cpp
 	<bits/stdc++.h>
 
-1631106882 source:c:\code\cp\codeforces\1551a.cpp
+1660468301 source:c:\work\cp\codeforces\1697b.cpp
 	<bits/stdc++.h>
 
-1631266846 source:c:\code\cp\codeforces\1541a.cpp
+1660532168 source:c:\work\cp\codeforces\1681c.cpp
 	<bits/stdc++.h>
 
-1631269132 source:c:\code\cp\codeforces\1539c.cpp
+1660618889 source:c:\work\cp\codeforces\1713b.cpp
 	<bits/stdc++.h>
 
-1631281391 source:c:\code\cp\codeforces\1560a.cpp
+1660620729 source:c:\work\cp\codeforces\1702c.cpp
 	<bits/stdc++.h>
 
-1643704904 source:c:\code\cp\codeforces\1612b.cpp
+1660875761 source:c:\work\cp\codeforces\1696b.cpp
 	<bits/stdc++.h>
 
-1643708439 source:c:\code\cp\codeforces\1584b.cpp
+1661485202 source:c:\work\cp\codeforces\1398b.cpp
 	<bits/stdc++.h>
 
-1643710226 source:c:\code\cp\codeforces\1593c.cpp
+1663121093 source:c:\work\cp\codeforces\g102951d.cpp
+	<bits/stdc++.h>
+
+1665457735 source:c:\work\cp\codeforces\863b.cpp
+	<bits/stdc++.h>
+
+1665486377 source:c:\work\cp\codeforces\160a.cpp
+	<bits/stdc++.h>
+
+1665486952 source:c:\work\cp\codeforces\34b.cpp
+	<bits/stdc++.h>
+
+1665491254 source:c:\work\cp\codeforces\230a.cpp
+	<bits/stdc++.h>
+
+1665491683 source:c:\work\cp\codeforces\456a.cpp
+	<bits/stdc++.h>
+
+1665582588 source:c:\work\cp\codeforces\1008b.cpp
+	<bits/stdc++.h>
+
+1665584119 source:c:\work\cp\codeforces\1015c.cpp
+	<bits/stdc++.h>
+
+1665585232 source:c:\work\cp\codeforces\785b.cpp
+	<bits/stdc++.h>
+
+1665622354 source:c:\work\cp\codeforces\242b.cpp
+	<bits/stdc++.h>
+
+1665623406 source:c:\work\cp\codeforces\155b.cpp
+	<bits/stdc++.h>
+
+1665624932 source:c:\work\cp\codeforces\15a.cpp
+	<bits/stdc++.h>
+
+1665879316 source:c:\work\cp\codeforces\492b.cpp
+	<bits/stdc++.h>
+
+1665882705 source:c:\work\cp\codeforces\682b.cpp
+	<bits/stdc++.h>
+
+1665885960 source:c:\work\cp\codeforces\651b.cpp
+	<bits/stdc++.h>
+
+1665887982 source:c:\work\cp\codeforces\546b.cpp
+	<bits/stdc++.h>
+
+1665889088 source:c:\work\cp\codeforces\1131c.cpp
+	<bits/stdc++.h>
+
+1665890449 source:c:\work\cp\codeforces\424b.cpp
+	<bits/stdc++.h>
+
+1665891903 source:c:\work\cp\codeforces\990b.cpp
 	<bits/stdc++.h>
 
