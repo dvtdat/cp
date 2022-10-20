@@ -1,28 +1,16 @@
-// dau` toan` gau` khong ak, ngua'
+// nhieu nam xa cach ke tu luc ay chac con cho` mong
 
 #include <bits/stdc++.h>
 
 using namespace std;
 
-void process(vector<int> &a, int n)
+void solve(int x, int y)
 {
-    for (int &i : a) i += n * 2;
+    x = 2; y = 3;
 }
-
 int main()
 {
-    int n; cin >> n;
-
-    vector<int> a(n);
-
-    for (int &i : a) cin >> i;
-
-    process(a, n);
-
-    vector<int*> ptr(n);
-
-    for (int i = 0; i < n; ++i) ptr[i] = &a[i];
-
-    for (auto i : ptr) cout << i << ' ';
-
+    int x = 10;
+    solve(x, x);
+    cout << x;
 }
