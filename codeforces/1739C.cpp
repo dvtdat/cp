@@ -8,15 +8,15 @@ typedef pair<int, int> ii;
 
 void solve()
 {
-    int n, m; cin >> n >> m;
+    int n; cin >> n;
 
-    for (int i = 0; i < m; ++i)
-    {
-        int u, v; cin >> u >> v;
-    }
+    vector<int> a(n);
 
-    if (m < n) cout << "YES\n";
-    else cout << "NO\n";
+    for (int &i : a) cin >> i;
+
+    sort(a.begin(), a.end());
+
+
 }
 
 int main()
@@ -27,6 +27,8 @@ int main()
     int test; cin >> test;
     while (test--) solve();
 }
+
+
 
 
 
