@@ -1,16 +1,25 @@
-// nhieu nam xa cach ke tu luc ay chac con cho` mong
-
 #include <bits/stdc++.h>
 
 using namespace std;
 
-void solve(int x, int y)
+void f(vector<int> &b)
 {
-    x = 2; y = 3;
+    for (int &i : b) i += 10;
 }
+
 int main()
 {
-    int x = 10;
-    solve(x, x);
-    cout << x;
+    int n; cin >> n;
+
+    vector<int> a(n);
+
+    for (int &i : a) cin >> i;
+
+    // for (int i = 0; i < n; ++i) cin >> a[i];
+
+    f(a);
+
+    for (int i : a) cout << i << ' ';
+
+
 }
