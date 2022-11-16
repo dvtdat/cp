@@ -1,4 +1,4 @@
-//
+// khong coi no' la` thoi' quen, khong hieu sao, van~ kho' sua
 
 #include <bits/stdc++.h>
 
@@ -14,7 +14,23 @@ const int maxN = 200010;
 
 void solve()
 {
+    int n; cin >> n;
 
+    if (n % 7 == 0)
+    {
+        cout << n << '\n'; return;
+    }
+
+    n = n / 10 * 10;
+
+    for (int i = 0; i < 10; ++i)
+    {
+        if ((n + i) % 7 == 0)
+        {
+            cout << n + i << '\n';
+            return;
+        }
+    }
 }
 
 int main()
@@ -32,6 +48,6 @@ int main()
 //     / _` \ \ / / __/ _` |
 //    | (_| |\ V /| || (_| |
 //     \__,_| \_/  \__\__,_|
-
-
+//
+//
 

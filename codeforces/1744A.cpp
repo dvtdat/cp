@@ -1,4 +1,4 @@
-//
+// chill af
 
 #include <bits/stdc++.h>
 
@@ -14,7 +14,34 @@ const int maxN = 200010;
 
 void solve()
 {
+    int n;
+    vector<int> a(100), b(100, -1);
+    cin >> n;
 
+    for (int i  = 0; i < n; ++i)
+    {
+        cin >> a[i];
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        char c; cin >> c;
+        b[i] = c - 'a';
+    }
+
+    for (int i = 0; i < n - 1; ++i)
+    {
+        for (int j = i + 1; j < n; ++j)
+        {
+            if (a[i] == a[j] && b[i] != b[j])
+            {
+                cout << "NO\n";
+                return;
+            }
+        }
+    }
+
+    cout << "YES\n";
 }
 
 int main()
@@ -32,6 +59,5 @@ int main()
 //     / _` \ \ / / __/ _` |
 //    | (_| |\ V /| || (_| |
 //     \__,_| \_/  \__\__,_|
-
-
-
+//
+//

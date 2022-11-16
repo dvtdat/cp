@@ -1,4 +1,4 @@
-//
+// "giong nhu LK tao van tu hoi? nhieu` khi Den Vau la` ai"
 
 #include <bits/stdc++.h>
 
@@ -14,7 +14,23 @@ const int maxN = 200010;
 
 void solve()
 {
+    long long hc, dc, hm, dm, k, w, a;
+    cin >> hc >> dc >> hm >> dm >> k >> w >> a;
 
+    long long l = 0, r = k, i;
+
+    bool flag = 0;
+
+    for (i = 0; i <= k; ++i)
+    {
+        if ((hc + i * a) / dm + ((hc + i * a) % dm ? 1 : 0) >= hm / (dc + (k - i) * w) + (hm % (dc + (k - i) * w) ? 1 : 0))
+        {
+            cout << "YES\n";
+            return;
+        }
+    }
+
+    cout << "NO\n";
 }
 
 int main()
@@ -32,6 +48,6 @@ int main()
 //     / _` \ \ / / __/ _` |
 //    | (_| |\ V /| || (_| |
 //     \__,_| \_/  \__\__,_|
-
-
+//
+//
 

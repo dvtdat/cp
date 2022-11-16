@@ -1,4 +1,10 @@
 # depslib dependency file v1.0
-1665566796 source:c:\work\cp\tmp\main.cpp
+1668059999 source:c:\work\cp\tmp\main.cpp
 	<bits/stdc++.h>
+
+1668130953 source:c:\work\cp\tmp\main3.cpp
+
+1668217123 source:c:\work\cp\tmp\main2.cpp
+	<iomanip>
+	<iostream>
 

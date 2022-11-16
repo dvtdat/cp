@@ -1,4 +1,4 @@
-//
+// ai muon nghe khong?
 
 #include <bits/stdc++.h>
 
@@ -14,7 +14,17 @@ const int maxN = 200010;
 
 void solve()
 {
+    string s; cin >> s;
 
+    int cnt1 = 0, cnt0 = 0;
+
+    for (int i = 0; i < s.length(); ++i)
+    {
+        if (s[i] == '0') cnt0++; else cnt1++;
+    }
+
+    if (cnt0 == cnt1) cout << cnt1 - 1 << '\n';
+    else cout << min(cnt0, cnt1) << '\n';
 }
 
 int main()
@@ -32,6 +42,6 @@ int main()
 //     / _` \ \ / / __/ _` |
 //    | (_| |\ V /| || (_| |
 //     \__,_| \_/  \__\__,_|
-
-
+//
+//
 
