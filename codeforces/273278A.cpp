@@ -1,7 +1,5 @@
-// nhung con song' xo lau dai vo~ trong bong' dem
-// noi~ dau cu' nhu dang voi. ghe' tham trai' tim
-// chieu hoang hon den mang theo may den ve
-// phu kin trong tam tu bong hinh em
+// em van con thieu ngu sau nhung lan phai chay deadline
+// em quen an quen uong, quen ca viec chai lai toc tai
 
 #include <bits/stdc++.h>
 
@@ -15,23 +13,48 @@ const ll infLL = 2e18 + 7;
 const int inf = 2e9 + 7;
 const int maxN = 200010;
 
+struct item
+{
+    ll val;
+    ll seg;
+    ll pre;
+    ll suf;
+    ll sum;
+};
+
 struct segmentTree
 {
     int size;
-    vector<ll> mn;
+    vector<item> mn;
+
+    item calc(item a, item b)
+    {
+        item c;
+        c.seg = max(max(a.seg, b.seg), a.suf + b.pre);
+        c.pre = max(a.pre, a.sum + b.pre);
+        c.suf = max(b.suf, b.sum + a.suf);
+        c.sum = a.sum + b.sum;
+
+        return c;
+    }
+
+    item single(int v)
+    {
+        return {v, v, v, v, v};
+    }
 
     void init(int n)
     {
         size = 1;
         while (size < n) size *= 2;
-        mn.assign(size * 2, infLL);
+        mn.resize(size * 2);
     }
 
     void set(int i, int v, int x, int lx, int rx)
     {
         if (rx - lx == 1)
         {
-            mn[x] = v;
+            mn[x] = single(v);
             return;
         }
 
@@ -40,19 +63,19 @@ struct segmentTree
         if (i < mid) set(i, v, 2 * x + 1, lx, mid);
         else set(i, v, 2 * x + 2, mid, rx);
 
-        mn[x] = min(mn[2 * x + 1], mn[2 * x + 2]);
+        mn[x] = calc(mn[2 * x + 1], mn[2 * x + 2]);
     }
 
-    ll getMin(int l, int r, int x, int lx, int rx)
+    item get(int l, int r, int x, int lx, int rx)
     {
-        if (r <= lx || l >= rx) return infLL;
+        if (r <= lx || l >= rx) return single(0);
         if (l <= lx && rx <= r) return mn[x];
 
         int mid = (lx + rx) / 2;
-        ll mn1 = getMin(l, r, 2 * x + 1, lx, mid);
-        ll mn2 = getMin(l, r, 2 * x + 2, mid, rx);
+        item mn1 = get(l, r, 2 * x + 1, lx, mid);
+        item mn2 = get(l, r, 2 * x + 2, mid, rx);
 
-        return min(mn1, mn2);
+        return calc(mn1, mn2);
     }
 
     void set(int i, int v)
@@ -60,9 +83,9 @@ struct segmentTree
         set(i, v, 0, 0, size);
     }
 
-    ll getMin(int l, int r)
+    item get(int l, int r)
     {
-        return getMin(l, r, 0, 0, size);
+        return get(l, r, 0, 0, size);
     }
 };
 
@@ -80,19 +103,13 @@ void solve()
         st.set(i, v);
     }
 
-    for (int i = 0; i < m; ++i)
+    cout << max(0LL, st.get(0, n).seg) << '\n';
+
+    while (m--)
     {
-        int op; cin >> op;
-        if (op == 1)
-        {
-            int x, v; cin >> x >> v;
-            st.set(x, v);
-        }
-        else
-        {
-            int l, r; cin >> l >> r;
-            cout << st.getMin(l, r) << '\n';
-        }
+        int i, v; cin >> i >> v;
+        st.set(i, v);
+        cout << max(0LL, st.get(0, n).seg) << '\n';
     }
 }
 
@@ -113,3 +130,5 @@ int main()
 //     \__,_| \_/  \__\__,_|
 //
 //
+
+

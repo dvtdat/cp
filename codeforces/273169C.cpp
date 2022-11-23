@@ -1,7 +1,6 @@
-// nhung con song' xo lau dai vo~ trong bong' dem
-// noi~ dau cu' nhu dang voi. ghe' tham trai' tim
-// chieu hoang hon den mang theo may den ve
-// phu kin trong tam tu bong hinh em
+// luc em nhin anh anh chot roi vao tram tu
+// anh dau co muon minh chan chu
+// con tim bi troi' nen gam gu`
 
 #include <bits/stdc++.h>
 
@@ -15,23 +14,41 @@ const ll infLL = 2e18 + 7;
 const int inf = 2e9 + 7;
 const int maxN = 200010;
 
+struct item
+{
+    ll val;
+    int cnt;
+};
+
 struct segmentTree
 {
     int size;
-    vector<ll> mn;
+    vector<item> mn;
+
+    item merge(item a, item b)
+    {
+        if (a.val < b.val) return a;
+        if (a.val > b.val) return b;
+        else return {a.val, a.cnt + b.cnt};
+    }
+
+    item single(int v)
+    {
+        return {v, 1};
+    }
 
     void init(int n)
     {
         size = 1;
         while (size < n) size *= 2;
-        mn.assign(size * 2, infLL);
+        mn.resize(size * 2);
     }
 
     void set(int i, int v, int x, int lx, int rx)
     {
         if (rx - lx == 1)
         {
-            mn[x] = v;
+            mn[x] = {v, 1};
             return;
         }
 
@@ -40,19 +57,19 @@ struct segmentTree
         if (i < mid) set(i, v, 2 * x + 1, lx, mid);
         else set(i, v, 2 * x + 2, mid, rx);
 
-        mn[x] = min(mn[2 * x + 1], mn[2 * x + 2]);
+        mn[x] = merge(mn[2 * x + 1], mn[2 * x + 2]);
     }
 
-    ll getMin(int l, int r, int x, int lx, int rx)
+    item getMin(int l, int r, int x, int lx, int rx)
     {
-        if (r <= lx || l >= rx) return infLL;
+        if (r <= lx || l >= rx) return {infLL, 0};
         if (l <= lx && rx <= r) return mn[x];
 
         int mid = (lx + rx) / 2;
-        ll mn1 = getMin(l, r, 2 * x + 1, lx, mid);
-        ll mn2 = getMin(l, r, 2 * x + 2, mid, rx);
+        item mn1 = getMin(l, r, 2 * x + 1, lx, mid);
+        item mn2 = getMin(l, r, 2 * x + 2, mid, rx);
 
-        return min(mn1, mn2);
+        return merge(mn1, mn2);
     }
 
     void set(int i, int v)
@@ -60,7 +77,7 @@ struct segmentTree
         set(i, v, 0, 0, size);
     }
 
-    ll getMin(int l, int r)
+    item getMin(int l, int r)
     {
         return getMin(l, r, 0, 0, size);
     }
@@ -91,7 +108,8 @@ void solve()
         else
         {
             int l, r; cin >> l >> r;
-            cout << st.getMin(l, r) << '\n';
+            item res = st.getMin(l, r);
+            cout << res.val << ' ' << res.cnt << '\n';
         }
     }
 }
@@ -113,3 +131,4 @@ int main()
 //     \__,_| \_/  \__\__,_|
 //
 //
+

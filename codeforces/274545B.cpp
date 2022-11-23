@@ -1,7 +1,4 @@
-// nhung con song' xo lau dai vo~ trong bong' dem
-// noi~ dau cu' nhu dang voi. ghe' tham trai' tim
-// chieu hoang hon den mang theo may den ve
-// phu kin trong tam tu bong hinh em
+// hackathon incomming
 
 #include <bits/stdc++.h>
 
@@ -18,20 +15,20 @@ const int maxN = 200010;
 struct segmentTree
 {
     int size;
-    vector<ll> mn;
+    vector<int> val;
 
     void init(int n)
     {
         size = 1;
-        while (size < n) size *= 2;
-        mn.assign(size * 2, infLL);
+        while (size <= n) size *= 2;
+        val.assign(size * 2, 0);
     }
 
     void set(int i, int v, int x, int lx, int rx)
     {
         if (rx - lx == 1)
         {
-            mn[x] = v;
+            val[x] = v;
             return;
         }
 
@@ -40,19 +37,17 @@ struct segmentTree
         if (i < mid) set(i, v, 2 * x + 1, lx, mid);
         else set(i, v, 2 * x + 2, mid, rx);
 
-        mn[x] = min(mn[2 * x + 1], mn[2 * x + 2]);
+        val[x] = val[2 * x + 1] + val[2 * x + 2];
     }
 
-    ll getMin(int l, int r, int x, int lx, int rx)
+    int findVal(int k, int x, int lx, int rx)
     {
-        if (r <= lx || l >= rx) return infLL;
-        if (l <= lx && rx <= r) return mn[x];
+        if (rx - lx == 1) return lx;
 
         int mid = (lx + rx) / 2;
-        ll mn1 = getMin(l, r, 2 * x + 1, lx, mid);
-        ll mn2 = getMin(l, r, 2 * x + 2, mid, rx);
 
-        return min(mn1, mn2);
+        if (k > val[2 * x + 2]) findVal(k - val[2 * x + 2], 2 * x + 1, lx, mid);
+        else findVal(k, 2 * x + 2, mid, rx);
     }
 
     void set(int i, int v)
@@ -60,40 +55,39 @@ struct segmentTree
         set(i, v, 0, 0, size);
     }
 
-    ll getMin(int l, int r)
+    int findVal(int k)
     {
-        return getMin(l, r, 0, 0, size);
+        return findVal(k, 0, 0, size);
     }
 };
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    int n; cin >> n;
 
     segmentTree st;
     st.init(n);
 
+    vector<int> a(n);
+
     for (int i = 0; i < n; ++i)
     {
-        int v; cin >> v;
-        st.set(i, v);
+        cin >> a[i];
     }
 
-    for (int i = 0; i < m; ++i)
+    for (int i = 1; i <= n; ++i) st.set(i, 1);
+
+    vector<int> res;
+
+    for (int i = n - 1; i >= 0; --i)
     {
-        int op; cin >> op;
-        if (op == 1)
-        {
-            int x, v; cin >> x >> v;
-            st.set(x, v);
-        }
-        else
-        {
-            int l, r; cin >> l >> r;
-            cout << st.getMin(l, r) << '\n';
-        }
+        int t = st.findVal(a[i] + 1);
+        res.push_back(t);
+        st.set(t, 0);
     }
+
+    reverse(res.begin(), res.end());
+    for (int i : res) cout << i << ' ';
 }
 
 int main()
@@ -113,3 +107,4 @@ int main()
 //     \__,_| \_/  \__\__,_|
 //
 //
+

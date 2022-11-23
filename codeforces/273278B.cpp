@@ -1,7 +1,4 @@
-// nhung con song' xo lau dai vo~ trong bong' dem
-// noi~ dau cu' nhu dang voi. ghe' tham trai' tim
-// chieu hoang hon den mang theo may den ve
-// phu kin trong tam tu bong hinh em
+// happy birthday, me
 
 #include <bits/stdc++.h>
 
@@ -18,20 +15,20 @@ const int maxN = 200010;
 struct segmentTree
 {
     int size;
-    vector<ll> mn;
+    vector<int> sum;
 
     void init(int n)
     {
         size = 1;
         while (size < n) size *= 2;
-        mn.assign(size * 2, infLL);
+        sum.assign(size * 2, 0);
     }
 
     void set(int i, int v, int x, int lx, int rx)
     {
         if (rx - lx == 1)
         {
-            mn[x] = v;
+            sum[x] = v;
             return;
         }
 
@@ -40,19 +37,16 @@ struct segmentTree
         if (i < mid) set(i, v, 2 * x + 1, lx, mid);
         else set(i, v, 2 * x + 2, mid, rx);
 
-        mn[x] = min(mn[2 * x + 1], mn[2 * x + 2]);
+        sum[x] = sum[2 * x + 1] + sum[2 * x + 2];
     }
 
-    ll getMin(int l, int r, int x, int lx, int rx)
+    int getVal(int k, int x, int lx, int rx)
     {
-        if (r <= lx || l >= rx) return infLL;
-        if (l <= lx && rx <= r) return mn[x];
+        if (rx - lx == 1) return lx;
 
         int mid = (lx + rx) / 2;
-        ll mn1 = getMin(l, r, 2 * x + 1, lx, mid);
-        ll mn2 = getMin(l, r, 2 * x + 2, mid, rx);
-
-        return min(mn1, mn2);
+        if (k < sum[2 * x + 1]) getVal(k, 2 * x + 1, lx, mid);
+        else getVal(k - sum[2 * x + 1], 2 * x + 2, mid, rx);
     }
 
     void set(int i, int v)
@@ -60,40 +54,44 @@ struct segmentTree
         set(i, v, 0, 0, size);
     }
 
-    ll getMin(int l, int r)
+    int getVal(int k)
     {
-        return getMin(l, r, 0, 0, size);
+        return getVal(k, 0, 0, size);
     }
+
 };
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    int n, q;
+    cin >> n >> q;
 
     segmentTree st;
     st.init(n);
 
+    vector<int> a(n);
+
     for (int i = 0; i < n; ++i)
     {
-        int v; cin >> v;
-        st.set(i, v);
+        cin >> a[i];
+        st.set(i, a[i]);
     }
 
-    for (int i = 0; i < m; ++i)
+    while (q--)
     {
-        int op; cin >> op;
-        if (op == 1)
+        int flag, i; cin >> flag >> i;
+        if (flag == 1)
         {
-            int x, v; cin >> x >> v;
-            st.set(x, v);
+            a[i] = 1 - a[i];
+            st.set(i, a[i]);
         }
         else
         {
-            int l, r; cin >> l >> r;
-            cout << st.getMin(l, r) << '\n';
+            cout << st.getVal(i) << '\n';
         }
     }
+
+
 }
 
 int main()
@@ -113,3 +111,5 @@ int main()
 //     \__,_| \_/  \__\__,_|
 //
 //
+
+

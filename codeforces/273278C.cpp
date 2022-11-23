@@ -1,7 +1,4 @@
-// nhung con song' xo lau dai vo~ trong bong' dem
-// noi~ dau cu' nhu dang voi. ghe' tham trai' tim
-// chieu hoang hon den mang theo may den ve
-// phu kin trong tam tu bong hinh em
+// digital sustem
 
 #include <bits/stdc++.h>
 
@@ -18,20 +15,20 @@ const int maxN = 200010;
 struct segmentTree
 {
     int size;
-    vector<ll> mn;
+    vector<int> mx;
 
     void init(int n)
     {
         size = 1;
         while (size < n) size *= 2;
-        mn.assign(size * 2, infLL);
+        mx.assign(2 * size, -1);
     }
 
     void set(int i, int v, int x, int lx, int rx)
     {
         if (rx - lx == 1)
         {
-            mn[x] = v;
+            mx[x] = v;
             return;
         }
 
@@ -40,19 +37,17 @@ struct segmentTree
         if (i < mid) set(i, v, 2 * x + 1, lx, mid);
         else set(i, v, 2 * x + 2, mid, rx);
 
-        mn[x] = min(mn[2 * x + 1], mn[2 * x + 2]);
+        mx[x] = max(mx[2 * x + 1], mx[2 * x + 2]);
     }
 
-    ll getMin(int l, int r, int x, int lx, int rx)
+    int findMax(int k, int x, int lx, int rx)
     {
-        if (r <= lx || l >= rx) return infLL;
-        if (l <= lx && rx <= r) return mn[x];
+        if (rx - lx == 1) return lx;
 
         int mid = (lx + rx) / 2;
-        ll mn1 = getMin(l, r, 2 * x + 1, lx, mid);
-        ll mn2 = getMin(l, r, 2 * x + 2, mid, rx);
 
-        return min(mn1, mn2);
+        if (k <= mx[2 * x + 1]) findMax(k, 2 * x + 1, lx, mid);
+        else findMax(k, 2 * x + 2, mid, rx);
     }
 
     void set(int i, int v)
@@ -60,38 +55,39 @@ struct segmentTree
         set(i, v, 0, 0, size);
     }
 
-    ll getMin(int l, int r)
+    int findMax(int k)
     {
-        return getMin(l, r, 0, 0, size);
+        if (k > mx[0]) return -1;
+        return findMax(k, 0, 0, size);
     }
 };
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    int n, q; cin >> n >> q;
 
     segmentTree st;
     st.init(n);
 
     for (int i = 0; i < n; ++i)
     {
-        int v; cin >> v;
-        st.set(i, v);
+        int t; cin >> t;
+        st.set(i, t);
     }
 
-    for (int i = 0; i < m; ++i)
+    while (q--)
     {
-        int op; cin >> op;
-        if (op == 1)
+        int flag; cin >> flag;
+
+        if (flag == 1)
         {
-            int x, v; cin >> x >> v;
-            st.set(x, v);
+            int i, v; cin >> i >> v;
+            st.set(i, v);
         }
         else
         {
-            int l, r; cin >> l >> r;
-            cout << st.getMin(l, r) << '\n';
+            int k; cin >> k;
+            cout << st.findMax(k) << '\n';
         }
     }
 }
@@ -113,3 +109,4 @@ int main()
 //     \__,_| \_/  \__\__,_|
 //
 //
+

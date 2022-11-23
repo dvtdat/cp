@@ -1,7 +1,4 @@
-// nhung con song' xo lau dai vo~ trong bong' dem
-// noi~ dau cu' nhu dang voi. ghe' tham trai' tim
-// chieu hoang hon den mang theo may den ve
-// phu kin trong tam tu bong hinh em
+// england vs irun (v2)
 
 #include <bits/stdc++.h>
 
@@ -18,41 +15,37 @@ const int maxN = 200010;
 struct segmentTree
 {
     int size;
-    vector<ll> mn;
+    vector<int> sum;
 
     void init(int n)
     {
         size = 1;
-        while (size < n) size *= 2;
-        mn.assign(size * 2, infLL);
+        while (size <= n + 1) size *= 2;
+        sum.assign(size * 2, 0);
     }
 
     void set(int i, int v, int x, int lx, int rx)
     {
         if (rx - lx == 1)
         {
-            mn[x] = v;
+            sum[x] = v;
             return;
         }
 
         int mid = (lx + rx) / 2;
-
         if (i < mid) set(i, v, 2 * x + 1, lx, mid);
         else set(i, v, 2 * x + 2, mid, rx);
 
-        mn[x] = min(mn[2 * x + 1], mn[2 * x + 2]);
+        sum[x] = sum[2 * x + 1] + sum[2 * x + 2];
     }
 
-    ll getMin(int l, int r, int x, int lx, int rx)
+    int getSum(int l, int r, int x, int lx, int rx)
     {
-        if (r <= lx || l >= rx) return infLL;
-        if (l <= lx && rx <= r) return mn[x];
+        if (rx <= l || r <= lx) return 0;
+        if (l <= lx && rx <= r) return sum[x];
 
         int mid = (lx + rx) / 2;
-        ll mn1 = getMin(l, r, 2 * x + 1, lx, mid);
-        ll mn2 = getMin(l, r, 2 * x + 2, mid, rx);
-
-        return min(mn1, mn2);
+        return getSum(l, r, 2 * x + 1, lx, mid) + getSum(l, r, 2 * x + 2, mid, rx);
     }
 
     void set(int i, int v)
@@ -60,39 +53,24 @@ struct segmentTree
         set(i, v, 0, 0, size);
     }
 
-    ll getMin(int l, int r)
+    int getSum(int l, int r)
     {
-        return getMin(l, r, 0, 0, size);
+        return getSum(l, r, 0, 0, size);
     }
 };
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    int n; cin >> n;
 
     segmentTree st;
     st.init(n);
 
     for (int i = 0; i < n; ++i)
     {
-        int v; cin >> v;
-        st.set(i, v);
-    }
-
-    for (int i = 0; i < m; ++i)
-    {
-        int op; cin >> op;
-        if (op == 1)
-        {
-            int x, v; cin >> x >> v;
-            st.set(x, v);
-        }
-        else
-        {
-            int l, r; cin >> l >> r;
-            cout << st.getMin(l, r) << '\n';
-        }
+        int t; cin >> t;
+        cout << st.getSum(t, n + 1) << ' ';
+        st.set(t, 1);
     }
 }
 
@@ -113,3 +91,4 @@ int main()
 //     \__,_| \_/  \__\__,_|
 //
 //
+
