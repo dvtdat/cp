@@ -1,4 +1,4 @@
-// 
+// vai lon luon dau cat moi
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -20,7 +20,7 @@ const double eps = 1e-12;
 
 void solve()
 {
-    
+
 }
 
 int main()
@@ -43,3 +43,4 @@ int main()
 //     \__,_| \_/  \__\__,_|
 //
 //
+

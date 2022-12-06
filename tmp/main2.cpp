@@ -1,34 +1,20 @@
-//
-
 #include <bits/stdc++.h>
 
 using namespace std;
 
-typedef pair<int, int> ii;
-typedef pair<int, ii> iii;
-typedef long long ll;
-
-const ll infLL = 2e18 + 7;
-const int inf = 2e9 + 7;
-const int maxN = 200010;
-
-void solve()
-{
-
-}
-
 int main()
 {
-    ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
+    double kg, h; cin >> kg >> h;
+    double bmi = 1.0 * kg / (h * h);
 
-    int test; cin >> test;
-    while (test--) solve();
+    string _class, _risk;
+
+    if (bmi < 18.5) _class = "Thin", _risk = "Low";
+    if (bmi >= 18.5 && bmi <= 25) _class = "Normal", _risk = "Medium";
+    if (bmi > 25 && bmi <= 30) _class = "Overweight", _risk = "High";
+    if (bmi > 30 && bmi <= 35) _class = "Class 1 Obese", _risk = "High";
+    if (bmi > 35 && bmi <= 40) _class = "Class 2 Obese", _risk = "Very High";
+    if (bmi > 40) _class = "Class 3 Obese", _risk = "Extremely High";
+
+    cout << "You are " << _class << " and the risk of disease is " << _risk;
 }
-
-//         _       _      _
-//        | |     | |    | |
-//      __| |_   _| |_ __| |
-//     / _` \ \ / / __/ _` |
-//    | (_| |\ V /| || (_| |
-//     \__,_| \_/  \__\__,_|

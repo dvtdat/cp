@@ -4,7 +4,6 @@
 
 1668130953 source:c:\work\cp\tmp\main3.cpp
 
-1668217123 source:c:\work\cp\tmp\main2.cpp
-	<iomanip>
-	<iostream>
+1670148716 source:c:\work\cp\tmp\main2.cpp
+	<bits/stdc++.h>
 
