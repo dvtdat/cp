@@ -1,4 +1,4 @@
-// cat toc xong bong thay minh qua dep trai
+// final fairwell, great granddad!
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -18,25 +18,45 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
+vector<int> indicies;
+
+int compress(int x)
+{
+    return lower_bound(indicies.begin(), indicies.end(), x) - indicies.begin();
+}
+
 void solve()
 {
-    char c;
-    int n;
-
-    cin >> c;
-
-    n = c - '0';
-
-    cout << n;
-    
-    cout << n;
-
-    cout << n;
-
-    cout << n;
+    int n; cin >> n;
+    vector<ii> b(n);
+    vector<int> pre(maxN * 2);
     
 
-    cout << n;
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> b[i].first >> b[i].second;
+        indicies.push_back(b[i].first);
+        indicies.push_back(b[i].second);
+    }
+
+    sort(indicies.begin(), indicies.end());
+    indicies.erase(unique(indicies.begin(), indicies.end()), indicies.end());
+
+    for (int i = 0; i < n; ++i)
+    {
+        pre[compress(b[i].first)] += 1;
+        pre[compress(b[i].second) + 1] -= 1;
+    }
+
+    for (int i = 1; i < pre.size(); ++i)
+    {
+        pre[i] += pre[i - 1];
+    }
+
+    sort(pre.rbegin(), pre.rend());
+
+    if (pre[0] > 2) cout << "NO\n";
+    else cout << "YES\n";
 }
 
 int main()

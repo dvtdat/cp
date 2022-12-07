@@ -1,4 +1,4 @@
-// cat toc xong bong thay minh qua dep trai
+// mot ngay buon` :(
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -20,23 +20,29 @@ const double eps = 1e-12;
 
 void solve()
 {
-    char c;
-    int n;
+    int n, m; cin >> n >> m;
 
-    cin >> c;
+    vector<int> a(n);
 
-    n = c - '0';
+    for (int &i : a) cin >> i;
 
-    cout << n;
-    
-    cout << n;
+    sort(a.begin(), a.end());
 
-    cout << n;
+    vector<ll> ans(n);
 
-    cout << n;
-    
+    ll sum = 0;
 
-    cout << n;
+    for (int i = 0; i < n; ++i)
+    {
+        sum += a[i];
+        ans[i] = sum;
+
+        if (i >= m) ans[i] += ans[i - m];
+
+        cout << ans[i] << ' ';
+    }
+
+
 }
 
 int main()

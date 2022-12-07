@@ -1,4 +1,4 @@
-// cat toc xong bong thay minh qua dep trai
+// give me a day pls
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -20,23 +20,26 @@ const double eps = 1e-12;
 
 void solve()
 {
-    char c;
-    int n;
+    int n; cin >> n;
+    vector<int> a(n);
 
-    cin >> c;
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> a[i];
+        a[i] = abs(a[i]);
+    }
 
-    n = c - '0';
+    sort(a.begin(), a.end());
 
-    cout << n;
-    
-    cout << n;
+    ll res = 0;
 
-    cout << n;
+    for (int i = 0; i < n; ++i)
+    {
+        int j = upper_bound(a.begin(), a.end(), 2 * a[i]) - a.begin(); 
+        res += j - i - 1;
+    }
 
-    cout << n;
-    
-
-    cout << n;
+    cout << res;
 }
 
 int main()
