@@ -1,4 +1,4 @@
-// try hard?
+// croatia 0 - 0 brazil (H1)
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -21,32 +21,52 @@ const double eps = 1e-12;
 void solve()
 {
     int n; cin >> n;
-    vector<int> even, odd;
 
-    for (int i = 0; i < n; ++i)
+    int cnt = 1;
+    vector<int> a(n), diff(n);
+
+    for (int &i : a) cin >> i;
+
+    for (int i = 1; i < n; ++i)
     {
-        int v; cin >> v;
-        if (v % 2 == 0) even.push_back(v);
-        else odd.push_back(v);
+        diff[i] = max(0, a[i - 1] - a[i]);
     }
 
-    for (int i = 1; i < even.size(); ++i)
+    vector<int> res1, res2;
+
+    for (int i = n - 1; i > 0; --i)
     {
-        if (even[i] < even[i - 1])
+        int sum = 0;
+        while (diff[i] != 0 && sum < diff[i])
         {
-            cout << "NO\n"; return;
+            sum += cnt++;
+            res1.push_back(i + 1);
         }
     }
 
-    for (int i = 1; i < odd.size(); ++i)
+    while (res1.size() < n) res1.push_back(1);
+
+    cnt = 1;
+    for (int i = 1; i < n; ++i)
     {
-        if (odd[i] < odd[i  - 1])
+        int sum = 0;
+        while (diff[i] != 0 && sum < diff[i])
         {
-            cout << "NO\n"; return;
+            sum += cnt++;
+            res2.push_back(i + 1);
         }
     }
 
-    cout << "YES\n";
+    while (res1.size() < n) res1.push_back(1);
+    while (res2.size() < n) res2.push_back(1);
+
+    vector<int> res;
+
+    if (res2.size() < res1.size()) res = res2;
+    else res = res1;
+    
+    for (int i : res) cout << i << ' ';
+    cout << '\n';
 }
 
 int main()
@@ -57,7 +77,7 @@ int main()
     #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    int test ; cin >> test;
+    int test; cin >> test;
     while (test--) solve();
 }
 

@@ -1,4 +1,7 @@
-// try hard?
+//UNDONE
+
+// croatia 0 - 0 brazil (75')
+// croatia 0 - 1 brazil (ET 105')
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -14,39 +17,38 @@ typedef long double ld;
 
 const ll infLL = 2e18 + 7;
 const int inf = 2e9 + 7;
-const int maxN = 200010;
+const int maxN = 100010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
 void solve()
 {
     int n; cin >> n;
-    vector<int> even, odd;
+    ll sum = 0ll;
+
+    vector<int> a(n);
+    vector<int> cnt(maxN * 10);
 
     for (int i = 0; i < n; ++i)
     {
-        int v; cin >> v;
-        if (v % 2 == 0) even.push_back(v);
-        else odd.push_back(v);
+        cin >> a[i];
+        cnt[a[i]]++;
+        sum += 1ll * a[i];
     }
 
-    for (int i = 1; i < even.size(); ++i)
+    vector<int> res;
+
+    for (int i = 0; i < n; ++i)
     {
-        if (even[i] < even[i - 1])
-        {
-            cout << "NO\n"; return;
-        }
+        sum -= a[i]; --cnt[a[i]];
+
+        if (sum % 2 == 0 && sum / 2 <= 1e6 && cnt[sum / 2] > 0) res.push_back(i);
+
+        sum += a[i]; ++cnt[a[i]];
     }
 
-    for (int i = 1; i < odd.size(); ++i)
-    {
-        if (odd[i] < odd[i  - 1])
-        {
-            cout << "NO\n"; return;
-        }
-    }
-
-    cout << "YES\n";
+    cout << res.size() << '\n';
+    for (int i : res) cout << i + 1 << ' ';
 }
 
 int main()
@@ -57,7 +59,7 @@ int main()
     #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    int test ; cin >> test;
+    int test = 1; //cin >> test;
     while (test--) solve();
 }
 
