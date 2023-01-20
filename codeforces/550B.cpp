@@ -1,4 +1,4 @@
-// 
+// xuan mang tinh yeu muon nha
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -18,15 +18,35 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
-bool implication(bool p, bool q)
-{
-    return (!p || q);
-}
+int a[maxN];
 
 void solve()
 {
-    cout << bitset<8>(43);
-}
+    int n, l, r, x; cin >> n >> l >> r >> x;
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    sort(a, a + n);
+
+    int res = 0;
+
+    for (int mask = 0; mask < (1 << n); ++mask)
+    {
+        int sum = 0, mn = inf, mx = 0;
+        for (int i = 0; i < n; ++i)
+        {
+            if (!(mask & (1 << i))) continue;
+            mn = min(mn, a[i]);
+            mx = max(mx, a[i]);
+            sum += a[i];
+        }   
+
+        //cout << sum << '\n';
+
+        res += (l <= sum && sum <= r && mx - mn >= x);
+    }
+
+    cout << res;
+}  
 
 int main()
 {

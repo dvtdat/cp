@@ -18,14 +18,29 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
-bool implication(bool p, bool q)
-{
-    return (!p || q);
-}
+int a[30];
 
 void solve()
 {
-    cout << bitset<8>(43);
+    int n; cin >> n;
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    for (int mask = 0; mask < (1 << n); ++mask)
+    {
+        int total = 0;
+        for (int i = 0; i < n; ++i)
+        {
+            if (mask & (1 << i)) total += a[i];
+            else total -= a[i];
+        }
+
+        if (total % 360 == 0) 
+        {
+            cout << "yes"; return;
+        }
+    }
+
+    cout << "no";
 }
 
 int main()
