@@ -18,16 +18,44 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
-bool implication(bool p, bool q)
-{
-    return (!p || q);
-}
+ii a[maxN];
 
 void solve()
 {
-    bool p, q;
+    int n, k; cin >> n >> k;
+    
+    for (int i = 0; i < n; ++i) cin >> a[i].second;
+    for (int i = 0; i < n; ++i) cin >> a[i].first;
 
-    cout << (4 | 3);
+    sort(a, a + n);
+
+    int total = 0;
+
+    for (int i = 0; i < n; ++i)
+    {
+        if (a[i].second <= total) continue;
+
+        if (i != 0) k -= a[i].first;
+
+        if (k > 0)
+        {
+            total += k;
+            while (a[i].second > total)
+            {
+                k -= a[i].first;
+                if (k < 0) break;
+
+                total += k;
+            }
+        }
+
+        if (a[i].second > total)
+        {
+            cout << "no\n"; return;
+        }
+    }
+
+    cout << "yes\n";
 }
 
 int main()
@@ -38,7 +66,7 @@ int main()
     #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    int test = 1; //cin >> test;
+    int test; cin >> test;
     while (test--) solve();
 }
 
