@@ -1,4 +1,4 @@
-// 
+// cruel
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -18,20 +18,31 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
+int p[maxN][35];
+
+void process()
+{
+    for (int i = 0; i <= 200000; ++i)
+    {
+        for (int j = 0; j <= 30; ++j)
+        {
+            p[i][j] = ((i & (1 << j)) ? 1 : 0);
+            if (i != 0) p[i][j] += p[i - 1][j];
+        }
+    }
+}
+
 void solve()
 {
-    bitset<100> can;
-    int n, w; cin >> n >> w;
+    int l, r; cin >> l >> r;
+    int mx = 0;
 
-    can[0] = 1;
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i <= 30; ++i)
     {
-        int v; cin >> v;
-        can |= (can << v);
+        mx = max(mx, p[r][i] - p[l - 1][i]);
     }
 
-    cout << can;
-
+    cout << r - l + 1 - mx << '\n';
 }
 
 int main()
@@ -42,7 +53,10 @@ int main()
     #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    int test = 1; //cin >> test;
+
+    
+    int test; cin >> test;
+    process();
     while (test--) solve();
 }
 

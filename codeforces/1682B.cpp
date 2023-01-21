@@ -20,18 +20,23 @@ const double eps = 1e-12;
 
 void solve()
 {
-    bitset<100> can;
-    int n, w; cin >> n >> w;
-
-    can[0] = 1;
+    vector<int> res;
+    int n; cin >> n;
+    
     for (int i = 0; i < n; ++i)
     {
-        int v; cin >> v;
-        can |= (can << v);
+        int u; cin >> u;
+        if (u != i) res.push_back(u);
     }
 
-    cout << can;
+    if (res.empty())
+    {
+        cout << 0 << '\n'; return;
+    }
+    int ans = res[0];
+    for (int i = 1; i < res.size(); ++i) ans &= res[i];
 
+    cout << ans << '\n';
 }
 
 int main()
@@ -42,7 +47,7 @@ int main()
     #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    int test = 1; //cin >> test;
+    int test; cin >> test;
     while (test--) solve();
 }
 

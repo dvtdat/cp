@@ -20,18 +20,19 @@ const double eps = 1e-12;
 
 void solve()
 {
-    bitset<100> can;
-    int n, w; cin >> n >> w;
+    int n; cin >> n;
 
-    can[0] = 1;
-    for (int i = 0; i < n; ++i)
+    int res = 30;
+
+    for (int i = 0; i <= 15; ++i)
     {
-        int v; cin >> v;
-        can |= (can << v);
+        for (int j = 0; j <= 15; ++j)
+        {
+            if (((n + i) << j) % 32768 == 0) res = min(res, i + j);
+        }
     }
 
-    cout << can;
-
+    cout << res << ' ';
 }
 
 int main()
@@ -42,7 +43,7 @@ int main()
     #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    int test = 1; //cin >> test;
+    int test; cin >> test;
     while (test--) solve();
 }
 

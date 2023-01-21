@@ -1,4 +1,4 @@
-// 
+// "ngay hom nay cua ban nhu the nao?"
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -18,20 +18,33 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
+int cnt[50];
+
 void solve()
 {
-    bitset<100> can;
-    int n, w; cin >> n >> w;
+    memset(cnt, 0, sizeof cnt);
+    int n, k; cin >> n >> k;
 
-    can[0] = 1;
     for (int i = 0; i < n; ++i)
     {
         int v; cin >> v;
-        can |= (can << v);
+        for (int j = 0; j <= 30; ++j)
+        {
+            cnt[j] += ((v & (1 << j)) ? 1 : 0);
+        }
     }
 
-    cout << can;
+    ll res = 0;
+    for (int i = 30; i >= 0; --i) 
+    {
+        cnt[i] = n - cnt[i];
+        if (cnt[i] > k) continue;
 
+        k -= cnt[i];
+        res += 1LL * (1 << i);
+    }
+
+    cout << res << '\n';
 }
 
 int main()
@@ -42,7 +55,7 @@ int main()
     #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    int test = 1; //cin >> test;
+    int test; cin >> test;
     while (test--) solve();
 }
 

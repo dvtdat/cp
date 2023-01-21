@@ -1,4 +1,4 @@
-// 
+// so here's my love letter
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -15,23 +15,23 @@ typedef long double ld;
 const ll infLL = 2e18 + 7;
 const int inf = 2e9 + 7;
 const int maxN = 200010;
-const ll MOD = 998244353;
+const ll MOD = 1e9 + 7;
 const double eps = 1e-12;
 
 void solve()
 {
-    bitset<100> can;
-    int n, w; cin >> n >> w;
+    int n, k; cin >> n >> k;
+    ll res = 0;
+    ll tmp = 1;
 
-    can[0] = 1;
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i <= 30; ++i)
     {
-        int v; cin >> v;
-        can |= (can << v);
+        if (k & (1 << i)) res = (res + tmp) % MOD;
+        tmp *= n;
+        tmp %= MOD;
     }
 
-    cout << can;
-
+    cout << res % MOD << '\n';
 }
 
 int main()
@@ -42,7 +42,7 @@ int main()
     #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    int test = 1; //cin >> test;
+    int test; cin >> test;
     while (test--) solve();
 }
 
