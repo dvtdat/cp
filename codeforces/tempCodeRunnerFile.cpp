@@ -1,9 +1,11 @@
-    // for (int i = 0; i <= s.length() - 3; i += 2)
+    // int i = 0;
+    // while (i < strlen(str))
     // {
-    //     num[cnt++] = s[i] - '0';
+    //     while (str[i] == ' ') i++;
+    //     if (flag) outstr[n++] = ' ';
+    //     else flag = true;
+        
+    //     outstr[n++] = str[i];
     // }
-    // num[cnt++] = s[s.length() - 1] - '0';
-    // sort(num, num + cnt);
 
-    // for (int i = 0; i < cnt - 1; ++i) cout << num[i] << '+';
-    // cout << num[cnt - 1];
+    // outstr[n] = '\0';

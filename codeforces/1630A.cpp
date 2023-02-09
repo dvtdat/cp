@@ -18,57 +18,41 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
-char c[20][20];
+int a[70000], flag[70000];
 
 void solve()
 {
-    memset(c, ' ', sizeof c);
+    int n, k; cin >> n >> k;
+    memset(flag, 0, sizeof flag);
 
-    for (int i = 1; i <= 9; ++i)
+    for (int i = 0; i < n; ++i)
     {
-        for (int j = 1; j <= 9; ++j)
-        {
-            cin >> c[i][j];
-        }
+        a[i] = n - i - 1;
     }
 
-    int x, y; cin >> x >> y;
-
-    x = x % 3; y = y % 3;
-    if (!x) x = 3;
-    if (!y) y = 3;
-
-    int cnt = 0;
-    for (int i = 3 * (x - 1) + 1; i <= 3 * x ; ++i)
+    if (k == n - 1)
     {
-        for (int j = 3 * (y - 1) + 1; j <= 3 * y; ++j)
+        if (n == 4)
         {
-            if (c[i][j] == '.') cnt++, c[i][j] = '!';
+            cout << "-1\n"; return;
         }
+
+        a[0] = 2;
+        a[1] = n - 3;
+        a[n - 1] = n - 2;
+    }
+    else
+    {
+        a[0] = n - k - 1;
+        a[k] = n - 1;
     }
 
-    if (!cnt)
-    {
-        for (int i = 1; i < 15; ++i)
-        {
-            for (int j = 1; j < 15; ++j)
-            {
-                if (c[i][j] == '.') c[i][j] = '!';
-            }
-        }
+    for (int i = 0; i < n; ++i)
+    {   
+        if (flag[i] || flag[a[i]]) continue;
+        cout << i << ' ' << a[i] << '\n';
+        flag[i] = 1; flag[a[i]] = 1;
     }
-
-    for (int i = 1; i <= 9; ++i)
-    {
-        for (int j = 1; j <= 9; ++j)
-        {
-            cout << c[i][j];
-            if (j % 3 == 0) cout << ' ';
-        }
-        cout << '\n';
-        if (i % 3 == 0) cout << '\n';
-    }
-
 }
 
 int main()
@@ -79,7 +63,7 @@ int main()
     #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    int test = 1; //cin >> test;
+    int test; cin >> test;
     while (test--) solve();
 }
 
