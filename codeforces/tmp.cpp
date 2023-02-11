@@ -1,21 +1,13 @@
 #include <iostream>
-#include <cstring>
+#include <string>
 
-void process(char str[], char outstr[])
-{
-    for (int i = 0; i < strlen(str); ++i)
-    {
-        outstr[i] = str[strlen(str) - i - 1];
-    }
-
-    outstr[strlen(str)] = '\0';
-}
+using namespace std;
 
 int main()
 {
-    char str[] = "hehe";
-    char *outstr = new char[strlen(str) + 1];
-    process(str, outstr);
+    string s = "hello tien dat";
 
-    std::cout << outstr << '\n';
+    string newString = s.substr(6, s.length() - 6);
+
+    cout << newString << ' ';
 }

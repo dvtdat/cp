@@ -15,7 +15,7 @@ typedef long double ld;
 const ll infLL = 2e18 + 7;
 const int inf = 2e9 + 7;
 const int maxN = 40010;
-const ll MOD = 10e9 + 7;
+const ll MOD = 1000000007;
 const double eps = 1e-12;
 
 ll palin[1000], f[maxN];
@@ -42,7 +42,7 @@ void init()
     }
 
     f[0] = 1; // base case
-    for (int i = 0; i <= n; ++i)
+    for (int i = 0; i < n; ++i)
     {
         for (int j = i; j < maxN; ++j)
         {
@@ -57,7 +57,7 @@ void init()
 void solve()
 {
     int k; cin >> k;
-    cout << f[k] << '\n';
+    cout << f[k] % MOD << '\n';
 }
 
 int main()

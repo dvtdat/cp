@@ -14,50 +14,38 @@ typedef long double ld;
 
 const ll infLL = 2e18 + 7;
 const int inf = 2e9 + 7;
-const int maxN = 40010;
-const ll MOD = 10e9 + 7;
+const int maxN = 2010;
+const ll MOD = 998244353;
 const double eps = 1e-12;
 
-ll palin[1000], f[maxN];
-int n = 0;
-
-int rev(int x)
-{
-    int l = x, res = 0;
-    while (l > 0)
-    {
-        res = res * 10 + l % 10;
-        l /= 10;
-    }
-
-    return res;
-}
-
-
-void init()
-{
-    for (int i = 1; i <= 40000; ++i)
-    {
-        if (rev(i) == i) palin[n++] = i;
-    }
-
-    f[0] = 1; // base case
-    for (int i = 0; i <= n; ++i)
-    {
-        for (int j = i; j < maxN; ++j)
-        {
-            if (j - palin[i] < 0) continue;
-            f[j] += f[j - palin[i]];
-            f[j] %= MOD;
-        }
-    }
-}
-
+int f[maxN][maxN];
+bool can[maxN][maxN];
 
 void solve()
 {
-    int k; cin >> k;
-    cout << f[k] << '\n';
+    int n, m; cin >> n >> m;
+
+    for (int i = 1; i <= m; ++i) f[0][i] = 1;
+    for (int i = 1; i <= n; ++i) f[i][0] = 1;
+
+    for (int i = 1; i <= n; ++i)
+    {
+        for (int j = 1; j <= m; ++j)
+        {
+            char c; cin >> c;
+            can[i][j] = (c == '#' ? 0 : 1);
+        }
+    }
+
+    for (int i = 2; i <= n; ++i)
+    {
+        for (int j = 2; j <= m; ++j)
+        {
+            if (can[i][j]) f[i][j] = f[i - 1][j] + f[i][j - 1];
+        }
+    }
+
+    cout << f[n][m];
 }
 
 int main()
@@ -68,9 +56,7 @@ int main()
     #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-
-    init();
-    int test; cin >> test;
+    int test = 1; //cin >> test;
     while (test--) solve();
 }
 
