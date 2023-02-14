@@ -1,4 +1,4 @@
-// 
+// hungry but must not eat
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -15,52 +15,50 @@ typedef long double ld;
 const ll infLL = 2e18 + 7;
 const int inf = 2e9 + 7;
 const int maxN = 2010;
-const ll MOD = 1000000007;
+const ll MOD = 998244353;
 const double eps = 1e-12;
 
-int f[maxN][maxN];
-bool can[maxN][maxN];
+int num[maxN];
+int print[maxN];
+
+void sieve()
+{
+    memset(num, 0, sizeof num);
+    int cnt = 0;
+    for (int i = 2; i * i <= 1000; ++i)
+    {
+        if (num[i]) continue;
+        cnt++;
+        for (int j = i * i; j <= 1000; j += i)
+        {
+            num[j] = cnt;
+        }
+    }
+}
+
+int check[12];
 
 void solve()
 {
-    memset(f, 0, sizeof f);
-    memset(can, 1, sizeof can);
+    memset(check, 0, sizeof check);
 
-    int n, m; cin >> n >> m;
+    int n; cin >> n;
+    vector<int> inp(n);
+    int cnt = 0;
 
-    for (int i = 1; i <= n; ++i)
+    for (int i = 0; i < n; ++i) 
     {
-        for (int j = 1; j <= m; ++j)
-        {
-            char c; cin >> c;
-            can[i][j] = 1;
-            if (c == '#')
-            {
-                can[i][j] = 0; f[i][j] = 0;
-            }
-        }
+        cin >> inp[i];
+        if (check[num[inp[i]]]) continue;
+        cnt++; check[num[inp[i]]] = cnt;  
     }
 
-    for (int i = 1; i <= m; ++i) 
+    cout << cnt << '\n';
+    for (int i = 0; i < n; ++i)
     {
-        if (!can[1][i]) break;
-        f[1][i] = 1;
+        cout << check[num[inp[i]]] << ' ';
     }
-    for (int i = 1; i <= n; ++i)
-    {
-        if (!can[i][1]) break;
-        f[i][1] = 1;
-    }
-
-    for (int i = 2; i <= n; ++i)
-    {
-        for (int j = 2; j <= m; ++j)
-        {
-            if (can[i][j]) f[i][j] = (f[i - 1][j] + f[i][j - 1]) % MOD;
-        }
-    }
-
-    cout << f[n][m] % MOD;
+    cout << '\n';
 }
 
 int main()
@@ -71,7 +69,8 @@ int main()
     #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    int test = 1; //cin >> test;
+    sieve();
+    int test; cin >> test;
     while (test--) solve();
 }
 
