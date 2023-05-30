@@ -1,4 +1,4 @@
-//
+// 
 
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
@@ -14,36 +14,28 @@ typedef long double ld;
 
 const ll infLL = 2e18 + 7;
 const int inf = 2e9 + 7;
-const int maxN = 200100;
+const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
-int a[100][100];
+const string s = "YesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYes";
 
 void solve()
 {
-    int n;
-
-    cin >> n;
-    int flag = 1;
-    int l = n * n, r = 1;
-
-    for (int i = 0; i < n; ++i)
+    string str; cin >> str;
+    for (int i = 0; i < s.length() - str.length() + 1; ++i)
     {
-        for (int j = 0; j < n; ++j)
+        bool flag = true;
+        for (int j = 0; j < str.length(); ++j)
         {
-            if (flag) a[i][j] = l--;
-            else a[i][j] = r++;
-            flag = 1 - flag;
+            if (s[i + j] != str[j]) flag = false;
         }
-        if (i % 2) reverse(a[i], a[i] + n);
+        if (flag)
+        {
+            cout << "yes\n"; return;
+        }
     }
-
-    for (int i = 0; i < n; ++i)
-    {
-        for (int j = 0; j < n; ++j) cout << a[i][j] << ' ';
-        cout << '\n';
-    }
+    cout << "no\n";
 }
 
 int main()
@@ -66,5 +58,4 @@ int main()
 //     \__,_| \_/  \__\__,_|
 //
 //
-
 

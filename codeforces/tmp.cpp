@@ -1,50 +1,64 @@
 #include <iostream>
-#include <cstring>
 
 using namespace std;
 
-void process(const char str[], char outstr[])
+typedef long long ll;
+
+const ll MOD = 998244353;
+
+class ModOp
 {
-    int tmpstrLength = 0, strLength = strlen(str), outstrLength = 0;
-    char tmpstr[100];
-
-    // Delete those character that is neither in abcABC or a spacebar
-    for (int i = 0; i < strLength; ++i)
+public:
+    int add(int x, int y)
     {
-        if (('a' <= str[i] && str[i] <= 'z') || ('A' <= str[i] && str[i] <= 'Z') || (str[i] == ' '))
-            tmpstr[tmpstrLength++] = str[i];
+        return ((x + y) % MOD + MOD) % MOD;
     }
-    tmpstr[tmpstrLength] = '\0';
 
-    // Delete excess spacebars
-    bool flag = false;
-    int i = 0;
-    while (i < tmpstrLength)
+    int sub(int x, int y)
     {
-        while (tmpstr[i] == ' ') i++;
-        if (flag && tmpstr[i - 1] == ' ') outstr[outstrLength++] = ' ';
-        else flag = true;
-
-        outstr[outstrLength++] = tmpstr[i++];
+        return add(x, -y);
     }
-    outstr[outstrLength] = '\0';
 
-    // Uppercase and lowercase management
-    for (int i = 0; i < outstrLength; ++i)
+    int mul(int x, int y)
     {
-        if ((i == 0 || outstr[i - 1] == ' ') && ('a' <= outstr[i] && outstr[i] <= 'z')) 
-            outstr[i] = outstr[i] - 'a' + 'A';
-
-        if ((i != 0 && outstr[i - 1] != ' ') && ('A' <= outstr[i] && outstr[i] <= 'Z'))
-            outstr[i] = outstr[i] - 'A' + 'a';
+        return x * 1LL * y % MOD;
     }
-}
+
+    int binpow(int x, int y)
+    {
+        int z = 1;
+        while (y)
+        {
+            if (y % 2 == 1) z = mul(z, x);
+            x = mul(x, x);
+            y /= 2;
+        }
+        return z;
+    }
+
+    int inv(int x)
+    {
+        return binpow(x, MOD - 2);
+    }
+
+    int div(int x, int y)
+    {
+        return mul(x, inv(y));
+    }
+
+    ll power(ll x, ll y)
+    {
+        if (y == 0) return 1;
+        ll res = power(x, y / 2);
+        res *= res;
+        res %= MOD;
+
+        if (y % 2 == 1) res *= x;
+        return res % MOD;
+    }
+};
 
 int main()
 {
-    const int MAX_SIZE = 100;
-    char str[] = " doan VAN *(()hau @!#$" ;
-    char outstr[MAX_SIZE];
-    process(str, outstr);
-    cout << outstr;
+
 }
