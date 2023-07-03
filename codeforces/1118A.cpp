@@ -19,7 +19,7 @@ void solve()
 {
     long long n, a, b; cin >> n >> a >> b;
     if (a < b / 2) cout << n * a << '\n';
-    else cout << (n / 2) * b + (n & 1 ? a : 0) << '\n';
+    else cout << (n / 2) * min(2 * a, b) + (n & 1 ? a : 0) << '\n';
 }
 
 int main()
