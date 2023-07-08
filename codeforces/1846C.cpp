@@ -50,11 +50,6 @@ void solve()
         if (flag) a.push_back(ii(-m, pen));
     }
 
-    // for (int i = 0; i < n; ++i)
-    // {
-    //     cout << a[i].first << ' ' << a[i].second << '\n';
-    // }
-
     ii save = a[0];
     sort(a.begin(), a.end());
     for (int i = 0; i < n; ++i)
