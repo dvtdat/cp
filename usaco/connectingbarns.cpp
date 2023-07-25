@@ -97,12 +97,18 @@ void solve()
     int rootDes = visited[n - 1];
 
     // Listing best solution for (i1, j1)
-    for (int i = 0; i < n; ++i)
+    /*
+        Traversing every vertex of the graph with i (A)
+        Traversing every vertex of root[0] with srcIdx (B)
+        Minimizing the cost of connecting source root and root of (A)
+        If vertex (B) is larger than vertex (A) => no need to check more, we only care about largest index closest to (A)
+    */
+    for (int i = 0; i < n; ++i) // (A)
     {
-        while (srcIdx < root[rootSrc].size())
+        while (srcIdx < root[rootSrc].size()) // (B)
         {
             srcCost[visited[i]] = min(srcCost[visited[i]], (ll)abs(i - root[rootSrc][srcIdx]));
-            if (root[rootSrc][srcIdx] < i) srcIdx++; // we don't have to check for j that is larger than i1 that we are checking
+            if (root[rootSrc][srcIdx] < i) srcIdx++;
             else break;
         }
         if (srcIdx) srcIdx--;
@@ -114,8 +120,9 @@ void solve()
         while (desIdx < root[rootDes].size())
         {
             desCost[visited[i]] = min(desCost[visited[i]], (ll)abs(i - root[rootDes][desIdx]));
-            if (root[rootDes][desIdx] < i) desIdx++; // we don't have to check for j that is larger than i2 that we are checking
+            if (root[rootDes][desIdx] < i) desIdx++;
             else break;
+            // no need to check more, we only care about smallest index closest to (A)
         }
         if (desIdx) desIdx--;
     }
