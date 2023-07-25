@@ -17,65 +17,64 @@ const double eps = 1e-12;
 
 int x[maxN];
 int y[maxN];
-int p[maxN];
 vector<int> adj1[maxN];
-bool visited[maxN];
 
-float dis(int a, int b)
-{
-    return 1.0 * sqrt((x[a] - x[b]) * (x[a] - x[b]) + (y[a] - y[b]) * (y[a] - y[b]));
-}
+bool visited[maxN];
 
 int bfs(int s)
 {
-    memset(visited, false, sizeof visited);
+    ii mx = ii(0, 0);
+    ii mn = ii(inf, inf);
 
     queue<int> q;
     q.push(s);
-
-    int res = 0;
 
     while (!q.empty())
     {
         int u = q.front(); q.pop();
         if (visited[u]) continue;
         visited[u] = true;
-        res++;
-        
+
+        mx.first = max(mx.first, x[u]);
+        mx.second = max(mx.second, y[u]);
+        mn.first = min(mn.first, x[u]);
+        mn.second = min(mn.second, y[u]);
+
+        // cout << u << ' ' << x[u] << ' ' << y[u] << ' ' << mx.first << ' ' << mx.second << ' ' << mn.first << ' ' << mn.second << '\n';
+
         for (int v : adj1[u])
         {
             if (!visited[v]) q.push(v);
         }
     }
 
-    return res;
+    return 2 * abs(mx.first - mn.first) + 2 * abs(mx.second - mn.second);
 }
 
 void solve()
 {
     memset(x, 0, sizeof x);
     memset(y, 0, sizeof y);
-    memset(p, 0, sizeof p);
+    memset(visited, false, sizeof visited);
 
-    int n; cin >> n;
+    int n, m; cin >> n >> m;
     for (int i = 0; i < n; ++i)
     {
-        cin >> x[i] >> y[i] >> p[i];
+        cin >> x[i] >> y[i];
     }
 
-    for (int i = 0; i < n - 1; ++i)
+    for (int i = 0; i < m; ++i)
     {
-        for (int j = i; j < n; ++j)
-        {
-            if (dis(i, j) <= 1.0 * p[i]) adj1[i].push_back(j);
-            if (dis(i, j) <= 1.0 * p[j]) adj1[j].push_back(i);
-        }
+        int u, v; cin >> u >> v;
+        u--, v--;
+        adj1[u].push_back(v);
+        adj1[v].push_back(u);
     }
 
-    int res = 0;
+    int res = inf;
     for (int i = 0; i < n; ++i)
     {
-        res = max(res, bfs(i));
+        if (!visited[i]) res = min(res, bfs(i));
     }
 
     cout << res << '\n';
@@ -88,8 +87,8 @@ int main()
     //     freopen("output.out", "w", stdout);
     // #endif
 
-    freopen("moocast.in", "r", stdin);
-    freopen("moocast.out", "w", stdout);
+    freopen("fenceplan.in", "r", stdin);
+    freopen("fenceplan.out", "w", stdout);
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
     int test = 1; //cin >> test;

@@ -18,7 +18,7 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
-vector<int> adj[maxN];
+vector<int> adj1[maxN];
 bool visited[maxN];
 bool closed[maxN];
 int cntNodes;
@@ -30,7 +30,7 @@ void dfs(int u)
     cntNodes++;
     visited[u] = true;
 
-    for (int v : adj[u])
+    for (int v : adj1[u])
     {
         if (!visited[v]) dfs(v);
     }
@@ -43,8 +43,8 @@ void solve()
     for (int i = 0; i < m; ++i)
     {
         cin >> u >> v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
+        adj1[u].push_back(v);
+        adj1[v].push_back(u);
     }
 
     vector<int> closing(n);
