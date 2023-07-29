@@ -1,4 +1,4 @@
-//
+// 
 
 #include <bits/stdc++.h>
 
@@ -15,24 +15,27 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
-ll fgcd(ll a, ll b) { while(b) swap(b, a %= b); return a; }
-
 void solve()
 {
-    ll a, b, c, d;
-    cin >> a >> b >> c >> d;
+    int n; cin >> n;
+    vector<int> a(maxN, 0);
 
-    for (ll x = a + 1; x <= c; ++x)
+    for (int i = 0; i < n; ++i)
     {
-        ll s = (a * b) / (fgcd(a * b, x));
-        ll y = (d / s) * s;
-
-        if (b >= y) continue;
-        cout << x << ' ' << y << '\n';
-        return;
+        int u; cin >> u;
+        if (u > n) continue;
+        a[u]++;
     }
 
-    cout << "-1 -1\n";
+    vector<int> res(n + 1, 0);
+    for (int i = 1; i <= n; ++i)
+    {
+        for (int j = i; j <= n; j += i) res[j] += a[i];
+    }
+
+    sort(res.rbegin(), res.rend());
+
+    cout << res[0] << '\n';
 }
 
 int main()

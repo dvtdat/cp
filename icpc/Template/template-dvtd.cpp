@@ -20,14 +20,21 @@ void solve()
 
 }
 
-int main()
+void setIO(string name)
 {
-    #ifndef ONLINE_JUDGE
-        freopen("input.inp", "r", stdin);
-        freopen("output.out", "w", stdout);
-    #endif
     ios_base::sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
+    if (!name.size()) return;
+
+    #ifndef ONLINE_JUDGE
+        freopen((name + ".inp").c_str(), "r", stdin);
+        freopen((name + ".out").c_str(), "w", stdout);
+    #endif
+}
+
+int main()
+{
+    setIO("text");
     int test = 1; //cin >> test;
     while (test--) solve();
 }
