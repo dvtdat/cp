@@ -17,29 +17,23 @@ const double eps = 1e-12;
 
 void solve()
 {
-    int n, a, b; cin >> n >> a >> b;
+    int n; cin >> n;
+    int k; cin >> k;
 
-    vector<int> v;
-    v.push_back(a);
-    for (int i = n / 2 + 1; i <= n; ++i)
-        if (i != a && i != b) v.push_back(i);
+    vector<int> a(n);
+    vector<int> b(n);
 
-    v.push_back(b);
-    for (int i = 1; i <= n / 2; ++i)
-        if (i != a && i != b) v.push_back(i);
+    for (int &i : a) cin >> i;
 
-    int mn = inf, mx = 0;
-
-    for (int i = 0; i < n / 2; ++i) mn = min(mn, v[i]);
-    for (int i = n / 2; i < n; ++i) mx = max(mx, v[i]);
-
-    if (v.size() == n && mn == a && mx == b)
+    int q = 0;
+    for (int i = n - 1; i >= 0; --i)
     {
-        for (int i = 0; i < n; ++i) cout << v[i] << ' ';
+        if (a[i] > q && q < k) q = q + 1, b[i] = 1;
+        else if (a[i] <= q) b[i] = 1;
+        else b[i] = 0; 
     }
-    else cout << -1;
 
-    cout << '\n';
+    for (int i = 0; i < n; ++i) cout << b[i]; cout << '\n';
 }
 
 void setIO(string name)

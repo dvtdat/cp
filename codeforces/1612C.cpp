@@ -14,32 +14,37 @@ const int inf = 2e9 + 7;
 const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
+ll n, x; 
 
 void solve()
 {
-    int n, a, b; cin >> n >> a >> b;
+    cin >> n >> x;
 
-    vector<int> v;
-    v.push_back(a);
-    for (int i = n / 2 + 1; i <= n; ++i)
-        if (i != a && i != b) v.push_back(i);
-
-    v.push_back(b);
-    for (int i = 1; i <= n / 2; ++i)
-        if (i != a && i != b) v.push_back(i);
-
-    int mn = inf, mx = 0;
-
-    for (int i = 0; i < n / 2; ++i) mn = min(mn, v[i]);
-    for (int i = n / 2; i < n; ++i) mx = max(mx, v[i]);
-
-    if (v.size() == n && mn == a && mx == b)
+    if (n == 1)
     {
-        for (int i = 0; i < n; ++i) cout << v[i] << ' ';
+        cout << 1 << '\n'; return;
     }
-    else cout << -1;
 
-    cout << '\n';
+    ll l = 1, r = 2 * n - 1;
+    ll res = 2 * n - 1;
+
+    while (l <= r)
+    {
+        ll mid = l + (r - l) / 2;
+        
+        if (mid >= n)
+        {
+            ll t = 2 * n - 1 - mid;
+            if (n * (n + 1) / 2 + n * (n - 1) / 2 - t * (t + 1) / 2 < x) l = mid + 1;
+            else r = mid - 1, res = mid;
+        }
+        else
+        {
+            if (mid * (mid + 1) / 2 < x) l = mid + 1;
+            else r = mid - 1, res = mid;
+        }
+    }
+    cout << res << '\n';
 }
 
 void setIO(string name)

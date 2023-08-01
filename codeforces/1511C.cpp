@@ -17,29 +17,26 @@ const double eps = 1e-12;
 
 void solve()
 {
-    int n, a, b; cin >> n >> a >> b;
+    int n, q; cin >> n >> q;
+    vector<int> a(n);
 
-    vector<int> v;
-    v.push_back(a);
-    for (int i = n / 2 + 1; i <= n; ++i)
-        if (i != a && i != b) v.push_back(i);
+    for (int &i : a) cin >> i;
 
-    v.push_back(b);
-    for (int i = 1; i <= n / 2; ++i)
-        if (i != a && i != b) v.push_back(i);
+    vector<int> p(100, 1e9);
+    for (int i = n - 1; i >= 0; --i) p[a[i]] = min(p[a[i]], i);
 
-    int mn = inf, mx = 0;
-
-    for (int i = 0; i < n / 2; ++i) mn = min(mn, v[i]);
-    for (int i = n / 2; i < n; ++i) mx = max(mx, v[i]);
-
-    if (v.size() == n && mn == a && mx == b)
+    for (int k = 0; k < q; ++k)
     {
-        for (int i = 0; i < n; ++i) cout << v[i] << ' ';
-    }
-    else cout << -1;
+        int t; cin >> t;
+        cout << p[t] + 1 << '\n';
 
-    cout << '\n';
+        for (int i = 0; i <= 50; ++i)
+        {
+            if (p[i] < p[t]) p[i]++;
+        }
+        p[t] = 0;
+    }
+
 }
 
 void setIO(string name)
@@ -57,7 +54,7 @@ void setIO(string name)
 int main()
 {
     setIO("text");
-    int test; cin >> test;
+    int test = 1; //  cin >> test;
     while (test--) solve();
 }
 
