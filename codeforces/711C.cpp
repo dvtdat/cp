@@ -62,9 +62,8 @@ void cal(int i, int j, int x, bool colored)
     ll tmp = inf;
     for (int l = 1; l <= m; ++l)
         if (l != x) tmp = min(tmp, f[i - 1][j - 1][l]);
-    f[i][j][x] = tmp + cost;
 
-    f[i][j][x] = min(f[i][j][x], f[i - 1][j][x] + cost);
+    f[i][j][x] = min(tmp + cost, f[i - 1][j][x] + cost);
 }
 
 void solve()
