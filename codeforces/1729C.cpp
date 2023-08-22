@@ -19,48 +19,42 @@ void solve()
 {
     string s; cin >> s;
     int n = s.length();
-    int t = 0;
 
-    bool flag = false;
+    vector<ii> a(n);
+
     for (int i = 0; i < n; ++i)
     {
-        if (s[i] == '0') flag = true;
-        if (flag && s[i] == '?') s[i] = '0';
+        a[i] = ii((s[i] - 'a'), i);
     }
-
-    flag = false;
-    for (int i = n - 1; i >= 0; --i)
-    {
-        if (s[i] == '1') flag = true;
-        if (flag && s[i] == '?') s[i] = '1';
-    }
-
-    // cout << s << '\n';
 
     int res = 0;
-    int one = 0;
-    int zero = 0;
-    for (int i = 0; i < n; ++i)
+    int idx = 0; 
+    vector<ii> b;
+
+    if (s[0] >= s[n - 1])
     {
-        if (s[i] == '0') zero++;
-        if (s[i] == '1') one++;
-        if (s[i] == '?') res++;
+        for (int i = 0; i < n; ++i)
+        {
+            if (s[0] >= s[i] && s[i] >= s[n - 1]) b.push_back(a[i]);
+        }
+        for (int i = 0; i < b.size(); ++i) b[i].second = -b[i].second;
+        sort(b.begin(), b.end());
+        reverse(b.begin(), b.end());
+        for (int i = 0; i < b.size(); ++i) b[i].second = -b[i].second;
+    }
+    else
+    {
+        for (int i = 0; i < n; ++i)
+        {
+            if (s[n - 1] >= s[i] && s[i] >= s[0]) b.push_back(a[i]);
+        }
+        sort(b.begin() + 1, b.end());
     }
 
-    if (one == n || zero == n)
-    {
-        cout << 1 << '\n'; return;
-    }
+    for (int i = 0; i < b.size() - 1; ++i) res += abs(b[i].first - b[i + 1].first);
 
-    if (res == n)
-    {
-        cout << n << '\n';
-        return;
-    }
-
-    if (s[0] == '?' || s[n - 1] == '?') res--;
-    
-    cout << res + 2 << '\n';
+    cout << res << ' ' << b.size() << '\n';
+    for (ii i : b) cout << i.second + 1 << ' '; cout << '\n';
 }
 
 void setIO(string name)

@@ -9,7 +9,7 @@ typedef pair<int, ii> iii;
 typedef long long ll;
 typedef long double ld;
 
-const ll infLL = 2e18 + 7;
+const ll infLL = 1e18 + 7;
 const int inf = 2e9 + 7;
 const int maxN = 200010;
 const ll MOD = 998244353;
@@ -17,50 +17,47 @@ const double eps = 1e-12;
 
 void solve()
 {
+    int n; cin >> n;
     string s; cin >> s;
-    int n = s.length();
-    int t = 0;
+    s = '.' + s;
 
-    bool flag = false;
-    for (int i = 0; i < n; ++i)
+    string t = ".hard";
+    vector<int> a(n + 1);
+    vector<vector<ll>> f(5, vector<ll>(n + 1, infLL));
+
+    for (int i = 1; i <= n; ++i) cin >> a[i];
+
+    f[1][0] = 0;
+    for (int i = 1; i <= n; ++i)
     {
-        if (s[i] == '0') flag = true;
-        if (flag && s[i] == '?') s[i] = '0';
+        f[1][i] = f[1][i - 1];
+        if (s[i] == t[1]) f[1][i] += a[i];
     }
 
-    flag = false;
-    for (int i = n - 1; i >= 0; --i)
+    for (int k = 2; k <= 4; ++k)
     {
-        if (s[i] == '1') flag = true;
-        if (flag && s[i] == '?') s[i] = '1';
+        if (s[1] == t[k]) f[k][1] = a[1];
+        f[k][1] = 0;
+
+        for (int i = 2; i <= n; ++i)
+        {
+            if (s[i] != t[k])
+            {
+                f[k][i] = f[k][i - 1];
+                continue;
+            }
+
+            f[k][i] = min(f[k][i - 1] + a[i], f[k - 1][i - 1]);
+        }
     }
 
-    // cout << s << '\n';
-
-    int res = 0;
-    int one = 0;
-    int zero = 0;
-    for (int i = 0; i < n; ++i)
+    ll res = infLL;
+    for (int k = 1; k <= 4; ++k)
     {
-        if (s[i] == '0') zero++;
-        if (s[i] == '1') one++;
-        if (s[i] == '?') res++;
+        res = min(res, f[k][n]);
     }
 
-    if (one == n || zero == n)
-    {
-        cout << 1 << '\n'; return;
-    }
-
-    if (res == n)
-    {
-        cout << n << '\n';
-        return;
-    }
-
-    if (s[0] == '?' || s[n - 1] == '?') res--;
-    
-    cout << res + 2 << '\n';
+    cout << res << '\n';
 }
 
 void setIO(string name)
@@ -78,7 +75,7 @@ void setIO(string name)
 int main()
 {
     setIO("text");
-    int test; cin >> test;
+    int test = 1; //cin >> test;
     while (test--) solve();
 }
 

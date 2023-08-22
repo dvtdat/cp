@@ -17,13 +17,28 @@ const double eps = 1e-12;
 
 void solve()
 {
-    int a, b, c, x, y; cin >> a >> b >> c >> x >> y;
+    int n; cin >> n;
+    vector<int> a(n), b(n);
+    for (int &i : a) cin >> i;
+    for (int &i : b) cin >> i;
 
-    x -= a; x = max(x, 0);
-    y -= b; y = max(y, 0);
+    vector<ii> pos;
+    for (int i = 0; i < n; ++i)
+    {
+        pos.push_back(ii(b[i] - a[i], i));
+    }
 
-    if (x + y <= c) cout << "YES\n";
-    else cout << "NO\n";
+    sort(pos.rbegin(), pos.rend());
+
+    int j = n - 1, res = 0;
+    for (int i = 0; i < n; ++i)
+    {
+        while (j > i && pos[i].first + pos[j].first < 0) j--;
+        if (j <= i) break;
+        res++, j--;
+    }
+
+    cout << res << '\n';
 }
 
 void setIO(string name)

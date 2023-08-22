@@ -17,7 +17,27 @@ const double eps = 1e-12;
 
 void solve()
 {
+    int n; cin >> n;
+    vector<int> a(n);
 
+    for (int &i : a) cin >> i;
+
+    int res = 0;
+    for (int i = n - 2; i >= 0; --i)
+    {
+        if (a[i + 1] == 0)
+        {
+            cout << -1 << '\n';
+            return;
+        }
+
+        while (a[i] >= a[i + 1] && a[i] != 0)
+        {
+            a[i] = a[i] / 2;
+            res++;
+        }
+    }
+    cout << res << '\n';
 }
 
 void setIO(string name)
@@ -35,7 +55,7 @@ void setIO(string name)
 int main()
 {
     setIO("text");
-    int test = 1; //cin >> test;
+    int test; cin >> test;
     while (test--) solve();
 }
 

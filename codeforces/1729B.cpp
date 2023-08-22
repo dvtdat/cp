@@ -17,13 +17,33 @@ const double eps = 1e-12;
 
 void solve()
 {
-    int a, b, c, x, y; cin >> a >> b >> c >> x >> y;
+    int n; cin >> n;
+    string s; cin >> s;
 
-    x -= a; x = max(x, 0);
-    y -= b; y = max(y, 0);
+    reverse(s.begin(), s.end());
 
-    if (x + y <= c) cout << "YES\n";
-    else cout << "NO\n";
+    int idx = 0;
+    string res = "";
+    while (idx < n)
+    {
+        int t = 0;
+        if (s[idx] == '0')
+        {
+            t = (s[idx + 1] - '0') + (s[idx + 2] - '0') * 10;
+            res += (char)(t - 1 + 'a');
+            idx += 3;
+        }
+        else
+        {
+            t = (s[idx] - '0');
+            res += (char)(t - 1 + 'a');
+            idx++;
+        }
+        
+    }
+
+    reverse(res.begin(), res.end());
+    cout << res << '\n';
 }
 
 void setIO(string name)

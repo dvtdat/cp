@@ -17,13 +17,36 @@ const double eps = 1e-12;
 
 void solve()
 {
-    int a, b, c, x, y; cin >> a >> b >> c >> x >> y;
+    int n, k; cin >> n >> k;
 
-    x -= a; x = max(x, 0);
-    y -= b; y = max(y, 0);
+    vector<int> a(n);
+    vector<ll> p(n + 1);
+    vector<ii> b(k);
+    vector<ll> res(k);
 
-    if (x + y <= c) cout << "YES\n";
-    else cout << "NO\n";
+    for (int &i : a) cin >> i;
+    for (int i = 0; i < k; ++i)
+    {
+        cin >> b[i].first;
+        b[i].second = i;
+    }
+
+    p[0] = a[0];
+    for (int i = 1; i < n; ++i) p[i] = p[i - 1] + a[i];
+
+    sort(b.begin(), b.end());
+
+    int j = 0;
+    for (int i = 0; i < k; ++i)
+    {
+        while (a[j] <= b[i].first && j < n) ++j;
+        
+        if (j - 1 < 0) res[b[i].second] = 0;
+        else res[b[i].second] = p[j - 1];
+    }
+
+    for (int i = 0; i < k; ++i) cout << res[i] << ' ';
+    cout << '\n';
 }
 
 void setIO(string name)
