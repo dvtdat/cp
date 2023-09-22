@@ -38,17 +38,46 @@ void setIO(string name)
     #endif
 }
 
+const int N = (int)1e7 + 10;
+int a,b,c,d;
+int sieve[N];
+ll cnt1=0,cnt2=0,res=0;
+
+bool in(int a,int b,int x){
+    return (x>=a && x<=b);
+}
+
+void solve(int n){
+    for (int i=2;i*i<=n;i++){
+        if (sieve[i])   continue;
+        if (in(a,b,i))  cnt1++;
+        if (in(c,d,i))  cnt2++;
+        sieve[i] = 1;
+        for (int j=2;j*i<=n;j++){
+            int x = j * i ;
+            if (in(a,b,x))  cnt1++;
+            if (in(c,d,x))  cnt2++;
+            sieve[x] = 1;
+        }
+        res+=(cnt1*cnt2);
+        cnt1=0;
+        cnt2=0;
+    }
+}
+
 int main()
 {
     setIO("");
-
-    // OUR CODE LIES HERE
-
+    cin>>a>>b>>c>>d;
+    solve(100);
+    debug(res);
+    ll ans = (b-a+1) * (d-c+1) - res;
+    cout<<ans;
     return 0;
 }
 
-//   _                          _   
-//  | |__   ___ _ __ ___  _   _| |_ 
+//   _                          _
+//  | |__   ___ _ __ ___  _   _| |_
 //  | '_ \ / __| '_ ` _ \| | | | __|
-//  | | | | (__| | | | | | |_| | |_ 
+//  | | | | (__| | | | | | |_| | |_
 //  |_| |_|\___|_| |_| |_|\__,_|\__|

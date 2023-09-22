@@ -38,17 +38,63 @@ void setIO(string name)
     #endif
 }
 
+const int N = (int)1e6 + 10;
+
+bool isPrime[N];
+vector<int> primes;
+
+void sieve(int n)
+{
+    memset(isPrime, true, sizeof isPrime);
+    isPrime[1] = false;
+
+    for (int i = 2; i <= n; ++i)
+    {
+        if (!isPrime[i]) continue;
+        primes.push_back(i);
+        for (ll j = 1LL * i * i; j <= (ll)n; j += i * 1LL) isPrime[j] = false;
+    }
+
+    sort(primes.begin(), primes.end());
+}
+
+ii _find(int x)
+{
+    for (int i = 0; primes[i] <= x / 2; ++i)
+    {
+        int tmp = x - primes[i];
+        if (binary_search(primes.begin(), primes.end(), tmp))
+        {
+            return ii(primes[i], tmp);
+        }
+    }
+    return ii(-1, -1);
+}
+
 int main()
 {
-    setIO("");
+    sieve((int)1e6);
 
-    // OUR CODE LIES HERE
+    int n; cin >> n;
+
+    ii tmp;
+    int cnt = 0;
+    int p = 0, q = n;
+    while (q - p >= 4)
+    {
+        tmp = _find(q - p);
+        cnt++;
+        p = tmp.first;
+        q = tmp.second;
+    }
+
+    cout << cnt;
 
     return 0;
 }
 
-//   _                          _   
-//  | |__   ___ _ __ ___  _   _| |_ 
+//   _                          _
+//  | |__   ___ _ __ ___  _   _| |_
 //  | '_ \ / __| '_ ` _ \| | | | __|
-//  | | | | (__| | | | | | |_| | |_ 
+//  | | | | (__| | | | | | |_| | |_
 //  |_| |_|\___|_| |_| |_|\__,_|\__|
