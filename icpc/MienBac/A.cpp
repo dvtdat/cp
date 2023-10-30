@@ -38,31 +38,42 @@ void setIO(string name)
     #endif
 }
 
-int main()
-{
-    setIO("");
+ll n;
+unordered_map<ll,ll> mp;
+vt<ll> f;
 
-    // OUR CODE LIES HERE
-    int n; cin >> n;
-    ll t; cin >> t;
-
-    vector<ll> a(n + 1, 0), p(n + 1, 0), ps(n + 1, 0);
-    for (int i = 1; i <= n; ++i) cin >> a[i];
-
-    for (int i = 1; i <= n; ++i) p[i] = max(a[i], p[i - 1]);
-    for (int i = 1; i <= n; ++i) ps[i] = 1ll * ps[i - 1] + a[i];
-
-    cout << max(1ll, 1 + (ll)floor(1.0 * t / a[1])) << '\n';
-    for (int i = 2; i <= n; ++i)
-    {
-        cout << max(1ll, 1 + (ll)ceil(1.0 * (t - ps[i]) / p[i]) + (1ll * (t - ps[i]) % p[i] ? 0 : 1)) << '\n';
+ll calc(ll n,ll id = 0){
+    ll ans=0;
+    if (n==1)   return 1;
+    if (n==8)  return 2;
+    if (n==144) return 3;
+    if (mp[n]==0){
+        int i;
+        for (i=id;i<90;i++){
+            if (n%f[i]==0){
+                ll k = calc(n/f[i],i);
+                if (k)  {ans+=calc(n/f[i],i);    break;}
+                debug(k);
+            }
+        }
+        if (i<90)        mp[n] = 1;
     }
-
-    return 0;
+    return ans;
 }
 
-//   _                          _
-//  | |__   ___ _ __ ___  _   _| |_
-//  | '_ \ / __| '_ ` _ \| | | | __|
-//  | | | | (__| | | | | | |_| | |_
-//  |_| |_|\___|_| |_| |_|\__,_|\__|
+int main(){
+    int test;
+    cin>>test;
+    //solve();
+    f.resize(90);
+    f[0] = f[1] = 1;
+    for (int i=2;i<90;i++)  f[i] = f[i-1] + f[i-2];
+    reverse(f.begin(),f.end());
+    //for (int i=0;i<13;i++)  cout<<f[i]<<' ';
+    //<<'\n';
+    while (test--){
+        cin>>n;
+        cout<<calc(n)<<'\n';
+    }
+    //debug(dp[13][201]);
+}

@@ -1,4 +1,7 @@
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
 
 using namespace std;
 
@@ -38,25 +41,26 @@ void setIO(string name)
     #endif
 }
 
+typedef tree<pair<int,int>, null_type, less<pair<int,int>>, rb_tree_tag,
+        tree_order_statistics_node_update>
+    pbds;
+
+int n;
+pbds s;
+
 int main()
 {
     setIO("");
-
-    // OUR CODE LIES HERE
-    int n; cin >> n;
-    ll t; cin >> t;
-
-    vector<ll> a(n + 1, 0), p(n + 1, 0), ps(n + 1, 0);
-    for (int i = 1; i <= n; ++i) cin >> a[i];
-
-    for (int i = 1; i <= n; ++i) p[i] = max(a[i], p[i - 1]);
-    for (int i = 1; i <= n; ++i) ps[i] = 1ll * ps[i - 1] + a[i];
-
-    cout << max(1ll, 1 + (ll)floor(1.0 * t / a[1])) << '\n';
-    for (int i = 2; i <= n; ++i)
-    {
-        cout << max(1ll, 1 + (ll)ceil(1.0 * (t - ps[i]) / p[i]) + (1ll * (t - ps[i]) % p[i] ? 0 : 1)) << '\n';
+    cin>>n;
+    for (int i=1;i<=n;i++)  s.insert(i);
+    for (int i=1;i<=n;i++){
+        int x;
+        cin>>x;
+        int ans = s.find_by_order(s.size()-x+1);
+        s.erase(s.find(ans));
+        cout<<ans<<' ';
     }
+    // OUR CODE LIES HERE
 
     return 0;
 }

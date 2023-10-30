@@ -24,6 +24,8 @@ ll fpow(ll a, ll b) { ll ans = 1; for(; b; b >>= 1, a *= a) if(b & 1) ans *= a; 
 int flog(int x) { return 31 - __builtin_clz(x); }
 int flog(ll x) {return 63 - __builtin_clzll(x);}
 
+#define all(x)         x.begin(),x.end()
+#define rr(x)     sort(all(x)),x.resize((unique(all(x))-x.begin()));
 #define debug(x) { cout << #x << " = "; cout << (x) << endl; }
 
 void setIO(string name)
@@ -37,31 +39,53 @@ void setIO(string name)
         freopen((name + ".out").c_str(), "w", stdout);
     #endif
 }
+#define int ll
+int a[1005],b[1005],c[1005];
+int n,m;
+vector<pair<int,ii>> q;
 
-int main()
+signed main()
 {
     setIO("");
-
-    // OUR CODE LIES HERE
-    int n; cin >> n;
-    ll t; cin >> t;
-
-    vector<ll> a(n + 1, 0), p(n + 1, 0), ps(n + 1, 0);
-    for (int i = 1; i <= n; ++i) cin >> a[i];
-
-    for (int i = 1; i <= n; ++i) p[i] = max(a[i], p[i - 1]);
-    for (int i = 1; i <= n; ++i) ps[i] = 1ll * ps[i - 1] + a[i];
-
-    cout << max(1ll, 1 + (ll)floor(1.0 * t / a[1])) << '\n';
-    for (int i = 2; i <= n; ++i)
+    cin>>n>>m;
+    ll ans=n*m;
+    for(int i=1;i<=m;++i)
     {
-        cout << max(1ll, 1 + (ll)ceil(1.0 * (t - ps[i]) / p[i]) + (1ll * (t - ps[i]) % p[i] ? 0 : 1)) << '\n';
+        cin>>a[i]>>b[i]>>c[i];
+        for(int j=1;j<i;j++)
+        {
+            int ma=a[i]-a[j],mb=b[i]-b[j],mc=c[i]-c[j];
+            int ua=(a[i]==0),ub=(b[i]==0),uc=(c[i]==0);
+            int va=(a[j]==0),vb=(b[j]==0),vc=(c[j]==0);
+            int ka=ub*vc-vb*uc,kb=-(ua*vc-va*uc),kc=ua*vb-va*ub;
+            if (!ka&&!kb&&!kc) continue;
+            if (ka*ma+kb*mb+kc*mc==0) {
+                int aa=a[i],bb=b[i],cc=c[i];
+                if (ua) aa=a[j];
+                if (ub) bb=b[j];
+                if (uc) cc=c[j];
+                q.push_back({aa,{bb,cc}});
+            }
+        }
     }
-
+    sort(all(q));
+    int cnt=1;
+    for(int i=1;i<=q.size();i++)
+    {
+        //cout<<q[i].first<<" "<<q[i].second.first<<" "<<q[i].second.second<<".\n";
+        if (i==q.size()||q[i]!=q[i-1])
+        {
+            if (cnt==1) ans--; else if (cnt==3) ans-=2;
+            //cout<<cnt<<endl;
+            cnt=1;
+        }
+        else cnt++;
+    }
+    cout<<ans;
     return 0;
 }
 
-//   _                          _
+//   _                          _223
 //  | |__   ___ _ __ ___  _   _| |_
 //  | '_ \ / __| '_ ` _ \| | | | __|
 //  | | | | (__| | | | | | |_| | |_

@@ -38,26 +38,45 @@ void setIO(string name)
     #endif
 }
 
+int n;
+ll c[5005];
+char a[5005],b[5005];
+vector<ll> u,v;
+
 int main()
 {
     setIO("");
-
-    // OUR CODE LIES HERE
-    int n; cin >> n;
-    ll t; cin >> t;
-
-    vector<ll> a(n + 1, 0), p(n + 1, 0), ps(n + 1, 0);
-    for (int i = 1; i <= n; ++i) cin >> a[i];
-
-    for (int i = 1; i <= n; ++i) p[i] = max(a[i], p[i - 1]);
-    for (int i = 1; i <= n; ++i) ps[i] = 1ll * ps[i - 1] + a[i];
-
-    cout << max(1ll, 1 + (ll)floor(1.0 * t / a[1])) << '\n';
-    for (int i = 2; i <= n; ++i)
-    {
-        cout << max(1ll, 1 + (ll)ceil(1.0 * (t - ps[i]) / p[i]) + (1ll * (t - ps[i]) % p[i] ? 0 : 1)) << '\n';
+    ll ans=0,tmp=0,tmp1=0,tmp2=0;
+    cin>>n;
+    for(int i=1;i<=n;i++) cin>>c[i];
+    for(int i=1;i<=n;i++) {
+        cin>>a[i];
+        if (a[i]==49) ans+=c[i];
     }
-
+    for(int i=1;i<=n;i++) {
+        cin>>b[i];
+        if (b[i]==48&&a[i]==49) u.push_back(c[i]),tmp1+=c[i];
+        else if (b[i]==49&&a[i]==48) v.push_back(c[i]),tmp2+=c[i];
+    }
+    sort(v.begin(),v.end());
+    if (v.size()) {
+        ll e=v[v.size()-1];
+        for(int i=1;i<=n;i++) {
+            if (b[i]==49&&a[i]==49) {
+                if (c[i]+tmp1+tmp2<c[i]*u.size()+c[i]) {u.push_back(c[i]); v.push_back(c[i]);}
+                else tmp+=c[i];
+            }
+        }
+    }
+    sort(v.begin(),v.end());
+    sort(u.begin(),u.end(),greater<>());
+    ans*=1ll*(int)u.size();
+    ll t=1ll*(int)u.size();
+    for(ll i:u) {ans-=i*t; t--;}
+    t=1ll*(int)v.size();
+    ans+=tmp*t;
+    for(ll i:v) {ans+=i*t; t--;}
+    cout<<ans;
     return 0;
 }
 

@@ -38,26 +38,28 @@ void setIO(string name)
     #endif
 }
 
+void printPermutation(int n, int k)
+{
+    int i, mx = n;
+    for (i = 1; i <= k; i++) // Decreasing part
+    {
+        cout << mx << " ";
+        mx--;
+    }
+    for (i = 1; i <= mx; i++) // Increasing part
+        cout << i << " ";
+}
+
 int main()
 {
     setIO("");
 
-    // OUR CODE LIES HERE
-    int n; cin >> n;
-    ll t; cin >> t;
+    int n, k; cin >> n >> k;
 
-    vector<ll> a(n + 1, 0), p(n + 1, 0), ps(n + 1, 0);
-    for (int i = 1; i <= n; ++i) cin >> a[i];
-
-    for (int i = 1; i <= n; ++i) p[i] = max(a[i], p[i - 1]);
-    for (int i = 1; i <= n; ++i) ps[i] = 1ll * ps[i - 1] + a[i];
-
-    cout << max(1ll, 1 + (ll)floor(1.0 * t / a[1])) << '\n';
-    for (int i = 2; i <= n; ++i)
-    {
-        cout << max(1ll, 1 + (ll)ceil(1.0 * (t - ps[i]) / p[i]) + (1ll * (t - ps[i]) % p[i] ? 0 : 1)) << '\n';
-    }
-
+    if (k >= n - 1)
+        cout << "Not Possible";
+    else
+        printPermutation(n, k);
     return 0;
 }
 

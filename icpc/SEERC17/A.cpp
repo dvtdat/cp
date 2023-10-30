@@ -38,26 +38,47 @@ void setIO(string name)
     #endif
 }
 
+const int N = 1e5+5;
+ll n,k;
+ll ans = 0;
+ll path[500];
+ll cost[30];
+vector<vector<ll>> pos;
+const int mod = 1e9+7;
+
+ll dfs(ll i,ll step){
+    int vt = lower_bound(pos[path[i]].begin(),pos[path[i]].end(),step)-pos[path[i]].begin();
+    debug(vt);
+    debug(path[i]);
+    if (vt == pos[path[i]].size())  return 0;
+    if (i == k-1)   return pos[path[i]].size()-vt;
+    for (int j=vt;j<pos[path[i]].size();j++){
+        ans = ans + (dfs( i+1, pos[path[i]][j] + cost[path[i]] +1))%mod;
+    }
+}
+
 int main()
 {
-    setIO("");
-
-    // OUR CODE LIES HERE
-    int n; cin >> n;
-    ll t; cin >> t;
-
-    vector<ll> a(n + 1, 0), p(n + 1, 0), ps(n + 1, 0);
-    for (int i = 1; i <= n; ++i) cin >> a[i];
-
-    for (int i = 1; i <= n; ++i) p[i] = max(a[i], p[i - 1]);
-    for (int i = 1; i <= n; ++i) ps[i] = 1ll * ps[i - 1] + a[i];
-
-    cout << max(1ll, 1 + (ll)floor(1.0 * t / a[1])) << '\n';
-    for (int i = 2; i <= n; ++i)
-    {
-        cout << max(1ll, 1 + (ll)ceil(1.0 * (t - ps[i]) / p[i]) + (1ll * (t - ps[i]) % p[i] ? 0 : 1)) << '\n';
+    setIO("t");
+    cin>>k>>n;
+    pos.resize(50,vector<ll>());
+    for (int i=0;i<26;i++){
+        cin>>cost[i];
     }
-
+    string s;
+    cin>>s;
+    for (int i=0;i<k;i++)   path[i] = s[i]-'A';
+    cin>>s;
+    for (int i=0;i<n;i++){
+        pos[s[i] - 'A'].push_back(i);
+    }
+    // OUR CODE LIES HERE
+    for (int i=0;i<pos[path[0]].size();i++){
+        debug(pos[path[0]][i]+cost[path[0]]+1);
+        ans = (ans + dfs(1,pos[path[0]][i]+cost[path[0]]+1))%mod;
+        debug(ans);
+    }
+    cout<<ans;
     return 0;
 }
 

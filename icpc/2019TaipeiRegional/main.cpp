@@ -38,26 +38,61 @@ void setIO(string name)
     #endif
 }
 
+int n;
+
+vector<ll> a[20];
+string s[20];
+
 int main()
 {
     setIO("");
-
-    // OUR CODE LIES HERE
-    int n; cin >> n;
-    ll t; cin >> t;
-
-    vector<ll> a(n + 1, 0), p(n + 1, 0), ps(n + 1, 0);
-    for (int i = 1; i <= n; ++i) cin >> a[i];
-
-    for (int i = 1; i <= n; ++i) p[i] = max(a[i], p[i - 1]);
-    for (int i = 1; i <= n; ++i) ps[i] = 1ll * ps[i - 1] + a[i];
-
-    cout << max(1ll, 1 + (ll)floor(1.0 * t / a[1])) << '\n';
-    for (int i = 2; i <= n; ++i)
+    int t;
+    cin>>t;
+    while(t--)
     {
-        cout << max(1ll, 1 + (ll)ceil(1.0 * (t - ps[i]) / p[i]) + (1ll * (t - ps[i]) % p[i] ? 0 : 1)) << '\n';
-    }
+        for (int i = 0; i < 20; ++i) {
+            a[i].clear();
+        }
 
+        int n,l,ans=1e9;
+        cin>>l>>n;
+        int u=l/50; if (l%50) u++;
+        ll v1=(1<<50)-1,v2=(1<<(l%50))-1;
+        for(int i=0;i<n;++i)
+        {
+            cin>>s[i];
+            ll e=-1,b=0;
+            for(int j=0;j<l;++j)
+            {
+                e++;
+                b+=1ll*(s[i][j]-'0')*(1<<e);
+                if (e==49||j==l-1) {a[i].push_back(b); e=-1; b=0;}
+            }
+        }
+        for(int i=0;i<(1<<n);i++)
+        {
+            int sl=0; vector<ll> s1;
+            for(int j=0;j<u;j++) s1.push_back(0ll);
+            for(int j=0;j<n;j++)
+            {
+                if (i&(1<<j))
+                {
+                    sl++;
+                    for(int k=0;k<u;k++) s1[k]|=a[j][k];
+                }
+            }
+            int kt=0;
+            for(int k=0;k<u-1;k++)
+            {
+                if (s1[k]!=v1) {kt++; break;}
+            }
+            if (l%50&&s1[u-1]!=v2) kt++;
+            else if (!(l%50)&&s1[u-1]!=v1) kt++;
+            if (!kt) {ans=min(ans,sl);}
+        if (ans==1e9) cout<<-1; else cout<<ans;
+        cout<<endl;
+        }
+    }
     return 0;
 }
 

@@ -14,7 +14,7 @@ using vll = vt<ll>;
 
 const ll infLL = 2e18 + 7;
 const int inf = 2e9 + 7;
-const int maxN = 200010;
+const int maxN = 5000100;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
@@ -38,25 +38,53 @@ void setIO(string name)
     #endif
 }
 
+ll spf[maxN];
+ll cnt=0;
+void sieve()
+{
+    spf[1] = 1;
+    for (int i = 2; i < maxN; i++) spf[i] = i;
+
+    for (int i = 4; i < maxN; i += 2) spf[i] = 2;
+
+    for (int i = 3; i * i < maxN; i++)
+    {
+        if (spf[i] == i)
+        {
+            for (int j = i * i; j < maxN; j += i)
+                if (spf[j] == j) spf[j] = i;
+        }
+    }
+}
+
+ll getFactorization(ll x)
+{
+    ll tmp = x,cur=0;
+    while (x != 1)
+    {
+        if (spf[x]!=cur) {
+            cur = spf[x];
+            tmp /= cur;
+            tmp *= (cur-1);
+        }
+        x = x / spf[x];
+    }
+    return tmp;
+}
+
 int main()
 {
     setIO("");
 
-    // OUR CODE LIES HERE
-    int n; cin >> n;
-    ll t; cin >> t;
+    sieve();
+    ll total = 0;
+    ll a, b; cin >> a >> b;
 
-    vector<ll> a(n + 1, 0), p(n + 1, 0), ps(n + 1, 0);
-    for (int i = 1; i <= n; ++i) cin >> a[i];
-
-    for (int i = 1; i <= n; ++i) p[i] = max(a[i], p[i - 1]);
-    for (int i = 1; i <= n; ++i) ps[i] = 1ll * ps[i - 1] + a[i];
-
-    cout << max(1ll, 1 + (ll)floor(1.0 * t / a[1])) << '\n';
-    for (int i = 2; i <= n; ++i)
+    for (int i = 1; i <= b; ++i)
     {
-        cout << max(1ll, 1 + (ll)ceil(1.0 * (t - ps[i]) / p[i]) + (1ll * (t - ps[i]) % p[i] ? 0 : 1)) << '\n';
+        (total += getFactorization(a * i)) %= 998244353;
     }
+    cout << total;
 
     return 0;
 }
