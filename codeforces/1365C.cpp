@@ -17,18 +17,23 @@ const double eps = 1e-12;
 
 void solve() {
     int n; cin >> n;
-    vector<int> d(n), a(n, 0);
-    for (int &i : d) cin >> i;
+    vector<int> a(n + 1), b(n + 1);
 
-    a[0] = d[0];
-    for (int i = 1; i < n; ++i) {
-        if (a[i - 1] - d[i] >= 0 && a[i - 1] - d[i] != a[i - 1] + d[i]) {
-            cout << -1 << '\n'; return;
-        }
-        a[i] = a[i - 1] + d[i];
+    for (int i = 1; i <= n; ++i) {
+        int u; cin >> u; a[u] = i;
+    }
+    
+    for (int i = 1; i <= n; ++i) {
+        int u; cin >> u; b[u] = i;
     }
 
-    for (int i : a) cout << i << ' '; cout << '\n';
+    vector<int> s(n, 0);
+
+    for (int i = 1; i <= n; ++i) {
+        s[(a[i] + n - b[i]) % n]++;
+    }
+
+    cout << *max_element(s.begin(), s.end()) << '\n';
 }
 
 void setIO(string name) {
@@ -43,8 +48,8 @@ void setIO(string name) {
 }
 
 int main() {
-    setIO("text");
-    int test; cin >> test;
+    setIO("");
+    int test = 1; //cin >> test;
     while (test--) solve();
 }
 

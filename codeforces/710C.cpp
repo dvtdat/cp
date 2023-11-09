@@ -17,18 +17,37 @@ const double eps = 1e-12;
 
 void solve() {
     int n; cin >> n;
-    vector<int> d(n), a(n, 0);
-    for (int &i : d) cin >> i;
-
-    a[0] = d[0];
-    for (int i = 1; i < n; ++i) {
-        if (a[i - 1] - d[i] >= 0 && a[i - 1] - d[i] != a[i - 1] + d[i]) {
-            cout << -1 << '\n'; return;
-        }
-        a[i] = a[i - 1] + d[i];
+    if (n == 1) {
+        cout << 1; return;
     }
 
-    for (int i : a) cout << i << ' '; cout << '\n';
+    int x = 1, off = 2;
+    int cnt = 1;
+
+    vector<vector<int>> a(n, vector<int>(n, 0));
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = (n - x) / 2; j < (n - x) / 2 + x; ++j) {
+            a[i][j] = cnt; cnt += 2;
+        }
+        x += off;
+        if (x == n) off = -2;
+    }
+
+    cnt = 2;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (a[i][j]) continue;
+            a[i][j] = cnt; cnt += 2;
+        }
+    }
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            cout << a[i][j] << ' ';
+        }
+        cout << '\n';
+    }
 }
 
 void setIO(string name) {
@@ -43,8 +62,8 @@ void setIO(string name) {
 }
 
 int main() {
-    setIO("text");
-    int test; cin >> test;
+    setIO("");
+    int test = 1; //cin >> test;
     while (test--) solve();
 }
 

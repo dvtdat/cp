@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1698832564 source:d:\work\cp\icpc\brazilsubregional\main.cpp
+	<bits/stdc++.h>
+	<ext/pb_ds/assoc_container.hpp>
+	<ext/pb_ds/tree_policy.hpp>
+
+1698830636 source:d:\work\cp\icpc\brazilsubregional\d.cpp
+	<bits/stdc++.h>
+	<ext/pb_ds/assoc_container.hpp>
+	<ext/pb_ds/tree_policy.hpp>
+

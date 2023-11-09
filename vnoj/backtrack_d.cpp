@@ -15,20 +15,30 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
-void solve() {
-    int n; cin >> n;
-    vector<int> d(n), a(n, 0);
-    for (int &i : d) cin >> i;
+unsigned long long mask[50];
+unsigned long long res = 0;
+int n;
 
-    a[0] = d[0];
-    for (int i = 1; i < n; ++i) {
-        if (a[i - 1] - d[i] >= 0 && a[i - 1] - d[i] != a[i - 1] + d[i]) {
-            cout << -1 << '\n'; return;
+void f(int i, unsigned long long curr) {
+    if (curr == (1 << 26) - 1) res++;
+    if (i >= n) return;
+    f(i + 1, curr | mask[i]);
+    f(i + 1, curr);
+}
+
+void solve() {
+    cin >> n;
+    memset(mask, 0, sizeof mask);
+
+    for (int i = 0; i < n; ++i) {
+        string s; cin >> s;
+        for (char c : s) {
+            mask[i] |= (1 << (c - 'a'));
         }
-        a[i] = a[i - 1] + d[i];
     }
 
-    for (int i : a) cout << i << ' '; cout << '\n';
+    f(0, 0);
+    cout << res << '\n';
 }
 
 void setIO(string name) {
@@ -44,7 +54,7 @@ void setIO(string name) {
 
 int main() {
     setIO("text");
-    int test; cin >> test;
+    int test = 1; //cin >> test;
     while (test--) solve();
 }
 

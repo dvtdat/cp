@@ -15,20 +15,37 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
-void solve() {
-    int n; cin >> n;
-    vector<int> d(n), a(n, 0);
-    for (int &i : d) cin >> i;
+int cnt = 0;
 
-    a[0] = d[0];
-    for (int i = 1; i < n; ++i) {
-        if (a[i - 1] - d[i] >= 0 && a[i - 1] - d[i] != a[i - 1] + d[i]) {
-            cout << -1 << '\n'; return;
+void solve() {
+    string s; cin >> s;
+    int k; cin >> k;
+    
+    vector<vector<int>> p(10, vector<int>());
+
+    int len = s.length() - k;
+
+    for (int i = 0; i < s.length(); ++i) {
+        p[s[i] - '0'].push_back(i);
+    }
+    for (int i = 0; i < 10; ++i) {
+        reverse(p[i].begin(), p[i].end());
+    }
+    vector<int> res;
+    int tmp = 0;
+    for (int i = 0; i < len; ++i) {
+        for (int x = (i == 0); x < 10; ++x) {
+            while (p[x].size() && p[x].back() < tmp) p[x].pop_back();
+            if (p[x].size() && p[x].back() - tmp <= k) {
+                k -= p[x].back() - tmp;
+                tmp = p[x].back() + 1;
+                res.push_back(x);
+                break;
+            }
         }
-        a[i] = a[i - 1] + d[i];
     }
 
-    for (int i : a) cout << i << ' '; cout << '\n';
+    for (int i : res) cout << i; cout << "\n";
 }
 
 void setIO(string name) {

@@ -15,20 +15,49 @@ const int maxN = 200010;
 const ll MOD = 998244353;
 const double eps = 1e-12;
 
+vector<vector<int>> f(1010, vector<int>());
+
+void process() {
+    for (int i = 1; i <= 1000; ++i) {
+        for (int j = 1; j <= i; ++j) {
+            if (__gcd(i, j) == 1) f[i].push_back(j);
+        }
+    }
+}
+
 void solve() {
     int n; cin >> n;
-    vector<int> d(n), a(n, 0);
-    for (int &i : d) cin >> i;
-
-    a[0] = d[0];
-    for (int i = 1; i < n; ++i) {
-        if (a[i - 1] - d[i] >= 0 && a[i - 1] - d[i] != a[i - 1] + d[i]) {
-            cout << -1 << '\n'; return;
-        }
-        a[i] = a[i - 1] + d[i];
+    vector<int> a(n);
+    
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
     }
 
-    for (int i : a) cout << i << ' '; cout << '\n';
+    int tmp =  a[0];
+    for (int i = 1; i < n; ++i) {
+        tmp = __gcd(tmp, a[i]);
+    }
+
+    // if (tmp != 1) {
+    //     cout << -1 << '\n'; return;
+    // }
+
+    vector<int> p(1010, 0);
+
+    for (int i = 0; i < n; ++i) {
+        p[a[i]] = max(p[a[i]], i + 1);
+    }
+
+    int res = 0;
+    for (int i = 1; i <= 1000; ++i) {
+        if (p[i] == 0) continue;
+        for (int v : f[i]) {
+            if (p[v] == 0) continue;
+            res = max(res, p[v] + p[i]);
+        }
+    } 
+
+    cout << (res != 0 ? res : -1) << '\n';
 }
 
 void setIO(string name) {
@@ -43,6 +72,7 @@ void setIO(string name) {
 }
 
 int main() {
+    process();
     setIO("text");
     int test; cin >> test;
     while (test--) solve();

@@ -65,13 +65,26 @@ void process(const vector<int>& scc)
 
 int main()
 {
-    int n = 5;
-    vector<vector<int>> adj(5, vector<int>());
+    int n = 8;
+    vector<vector<int>> adj(8, vector<int>());
 
-    adj[0].push_back(1);
+    /*
+    1 2
+    2 3
+    3 1
+    6 1
+    6 4
+    4 5
+    7 6
+    */
+
     adj[1].push_back(2);
-    adj[2].push_back(0);
-    adj[3].push_back(4);
+    adj[2].push_back(3);
+    adj[3].push_back(1);
+    adj[6].push_back(1);
+    adj[6].push_back(4);
+    adj[4].push_back(5);
+    adj[7].push_back(6);
 
     scc(adj, process);
 }
