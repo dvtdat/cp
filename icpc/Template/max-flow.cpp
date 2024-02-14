@@ -110,7 +110,7 @@ int main()
     myGraph.addEdge(0, 1, 2, 2); // Edge from node 0 to node 1 with capacity 2 and cost 2
     myGraph.addEdge(0, 3, 1, 1); // Edge from node 0 to node 3 with capacity 1 and cost 1
     myGraph.addEdge(1, 2, 2, 1); // Edge from node 1 to node 2 with capacity 2 and cost 1
-    myGraph.addEdge(1, 3, 1, 2); // Edge from node 1 to node 3 with capacity 1 and cost 2
+    myGraph.addEdge(1, 3, 1, 2); // Edge from node 1 to node 3 with capacity 1 and cost 2j
 
     int source = 0; // Source node
     int sink = 3;   // Sink node

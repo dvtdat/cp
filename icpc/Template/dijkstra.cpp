@@ -12,29 +12,25 @@ typedef pair<int, int> ii;
 const int inf = 2e9 + 7;
 const int maxN = 200010;
 
-void dijkstra(const int s, const int n, const vector<vector<ii>> &adj, int *d)
-{
+void dijkstra(const int s, const int n, const vector<vector<ii>> &adj, int *d) {
     priority_queue<ii, vector<ii>, greater<ii>> pq;
     for (int i = 0; i <= n; ++i) d[i] = inf;
 
     d[s] = 0;
     pq.push(ii(0, s));
 
-    while (!pq.empty())
-    {
+    while (!pq.empty()) {
         int u = pq.top().second;
         int du = pq.top().first;
         pq.pop();
 
         if (du != d[u]) continue;
 
-        for (int i = 0; i < (int)adj[u].size(); ++i)
-        {
+        for (int i = 0; i < (int)adj[u].size(); ++i) {
             int v = adj[u][i].first;
             int w = adj[u][i].second;
 
-            if (d[v] > du + w)
-            {
+            if (d[v] > du + w) {
                 d[v] = du + w;
                 pq.push(ii(d[v], v));
             }
