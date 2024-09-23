@@ -2,51 +2,36 @@
 
 using namespace std;
 
-const int maxN = 1e4 + 5;
-
-int c[maxN][maxN];
+vector<int> adj[110];
 
 int main() {
-    int n; cin >> n;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            cin >> c[i][j];
-        }
+    int n, m; cin >> n >> m;
+    int start; cin >> start;
+
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
 
-    vector<int> mA(n, 0), mB(n, 0), mC(2 * n - 1, 0), mD(2 * n - 1, 0);
+    vector<int> d(110, 0);
+    auto bfs = [&](int start) {
+        queue<int> q;
+        q.push(start);
+        d[start] = 1;
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            mA[i] = max(mA[i], c[i][j]);
+        while (!q.empty()) {
+            int u = q.front(); q.pop();
+            for (int v : adj[u]) {
+                if (d[v] == 0) {
+                    d[v] = d[u] + 1;
+                    q.push(v);
+                }
+            }
         }
-    }
+    };
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            mB[i] = max(mB[i], c[j][i]);
-        }
-    }
+    bfs(start);
 
-    for (int k = -(n - 1); k <= n - 1; ++k) {
-        for (int i = 0; i < n; ++i) {
-            if (i + k < 0 || i + k > n - 1) continue;
-            mC[k + n] = max(mC[k + n], c[i][i + k]);
-        }
-    }
-
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            mD[i + j] = max(mD[i + j], c[i][j]);
-        }
-    }
-
-    int cnt = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            if (c[i][j] == max(mA[i], max(mB[j], max(mC[j - i + n], mD[i + j])))) cnt++;
-        }
-    }
-
-    cout << cnt << '\n';
+    for (int i = 0; i < n; ++i) cout << d[i] << '\n';
 }
