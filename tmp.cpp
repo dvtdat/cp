@@ -5,8 +5,11 @@ using namespace std;
 vector<int> adj[110];
 
 int main() {
-    int n, m; cin >> n >> m;
-    int start; cin >> start;
+    int n, m;
+    cin >> n >> m;
+    
+    int start;
+    cin >> start;
 
     for (int i = 0; i < m; ++i) {
         int u, v; cin >> u >> v;
