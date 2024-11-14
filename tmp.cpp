@@ -23,7 +23,7 @@ int main() {
         q.push(start);
         d[start] = 1;
 
-        while (!q.empty()) {
+        while (q.size() != 0) {
             int u = q.front(); q.pop();
             for (int v : adj[u]) {
                 if (d[v] == 0) {
