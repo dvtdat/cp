@@ -2,26 +2,47 @@
 
 using namespace std;
 
+struct Node {
+    int data;
+    Node* next;
+
+    Node(int data, Node* next) {
+        this->data = data;
+        this->next = next;
+    }
+};
+
 int main() {
-    vector<int> a = {2, 4, 5, 8, 9, 11, 13, 14, 16, 20};
+    Node* head = new Node(1, new Node(2, new Node(3, new Node(4, nullptr))));
 
-    int n = a.size();
+    Node* tmp = head;
+    while (tmp != nullptr) {
+        cout << tmp->data << " ";
+        tmp = tmp->next;
+    }
+    cout << '\n';
 
-    int l = 0, r = n - 1;
-    int X = 10;
+    Node* curr = head;
+    Node* prev = nullptr;
+    Node* next = nullptr;
 
-    while (l <= r) {
-        int mid = l + (r - l) / 2;
+    while (curr != nullptr) {
+        next = curr->next;
 
-        if (X == a[mid]) {
-            cout << mid << '\n';
-            return 0;
-        } else if (X < a[mid]) {
-            r = mid - 1;
-        } else {
-            l = mid + 1;
-        }
+        curr->next = prev;
+        
+        prev = curr;
+        curr = next;
     }
 
-    cout << "Not found\n";
+    head = prev;
+
+    tmp = head;
+    while (tmp != nullptr) {
+        cout << tmp->data << " ";
+        tmp = tmp->next;
+    }
+    cout << '\n';
+
+    return 0;
 }
